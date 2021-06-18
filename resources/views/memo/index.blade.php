@@ -23,6 +23,7 @@
                 </div>
                 <div class="modal-body">
                 <form action="" name="folder_form" method="POST">
+                @csrf
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">フォルダ名</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">

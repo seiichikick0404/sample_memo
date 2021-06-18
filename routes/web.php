@@ -21,6 +21,7 @@ Route::get('/', [LoginController::class, 'showLoginForm'])->name('login.index');
 Route::get('/user', [RegisterController::class, 'showRegistrationForm'])->name('register.index');
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/memo', [MemoController::class, 'index'])->name('memo.index');
+
 });
 
 Auth::routes();
