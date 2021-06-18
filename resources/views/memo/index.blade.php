@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="folder-bar col-3"></div>
-        <div class="file-bar col-3"></div>
-        <div class="main-content col-6"></div>
+        <div class="folder-bar col-2"></div>
+        <div class="file-bar col-2"></div>
+        <div class="main-content col-8"></div>
     </div>
     <button type="button" class="btn btn-primary">Primary</button>
     <button type="button" class="btn btn-secondary">Secondary</button>
