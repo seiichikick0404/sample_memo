@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemoController;
+use App\Http\Controllers\FolderController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -21,6 +22,7 @@ Route::get('/', [LoginController::class, 'showLoginForm'])->name('login.index');
 Route::get('/user', [RegisterController::class, 'showRegistrationForm'])->name('register.index');
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/memo', [MemoController::class, 'index'])->name('memo.index');
+    Route::post('/memo/create_folder', [FolderController::class, 'store'])->name('memo.create_folder');
 
 });
 

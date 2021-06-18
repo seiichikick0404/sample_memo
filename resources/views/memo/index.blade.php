@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
+    <div class="row memo-container">
         <div class="folder-bar col-2">
             <!-- 切り替えボタンの設定 -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal">
-                押すと表示されます。
+                新規フォルダ作成
             </button>
 
             <!-- モーダルの設定 -->
@@ -22,17 +22,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                <form action="" name="folder_form" method="POST">
+                <form action="{{ route('memo.create_folder') }}" id="folder_form" method="POST">
                 @csrf
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">フォルダ名</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="text" name="folder_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                 </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                    <button type="button" name="folder_form" class="btn btn-primary">保存</button>
+                    <button type="submit" form="folder_form" class="btn btn-primary">保存</button>
                 </div>
             </div>
         </div>
