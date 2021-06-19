@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Folder;
+use App\Models\Memo;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class MemoController extends Controller
 {
@@ -13,7 +17,17 @@ class MemoController extends Controller
      */
     public function index()
     {
-        return view('memo.index');
+        //フォルダ一覧表示
+        if (auth::check()){
+            //認証ユーザーのid取得
+            $user_id = Auth::id();
+            $folders = DB::table('folders')
+            ->select('folder_name')
+            ->where('user_id', $user_id)->get();
+
+        
+            return view('memo.index', compact('folders'));
+        }
     }
 
     /**

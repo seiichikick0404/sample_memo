@@ -8,6 +8,17 @@
 .folder-bar {
   background-color: #F2F2F2;
   border-right: solid 1px #d8d8d8;
+  position: relative;
+}
+
+.folder-bar .modal-btn {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+}
+
+.folder-bar .list-group .fa-folder {
+  margin-right: 5px;
 }
 
 .file-bar {
