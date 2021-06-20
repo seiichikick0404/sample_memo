@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Folder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -17,6 +18,20 @@ class FolderController extends Controller
     public function index()
     {
         //
+    }
+
+    // フォルダ選択
+    public function select(Request $request)
+    {
+        $id = $request->id;
+        $folder = DB::table('folders')
+        ->where('folder_id', $id)
+        ->get();
+        session()->put('select_folder', $folder);
+
+        // dd($folder);
+
+        return redirect()->route('memo.index');
     }
 
     /**

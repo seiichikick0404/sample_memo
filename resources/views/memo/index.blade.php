@@ -9,7 +9,7 @@
             <div class="list-group ">
             @foreach ($folders as $folder)
                 @if (mb_strlen($folder->folder_name) <= 11)
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-secondary"><i class="far fa-folder"></i>{{ $folder->folder_name }}</a>
+                    <a href="{{ route('memo.select_folder', ['id'=> $folder->folder_id]) }}" class="list-group-item list-group-item-action list-group-item-secondary"><i class="far fa-folder"></i>{{ $folder->folder_name }}</a>
                 @else 
                     <a href="#" class="list-group-item list-group-item-action list-group-item-secondary"><i class="far fa-folder"></i>{{ mb_substr($folder->folder_name, 0, 11)."..." }}</a>
                 @endif
