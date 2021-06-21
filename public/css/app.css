@@ -17,8 +17,42 @@
   left: 3rem;
 }
 
+.folder-bar .list-group a {
+  position: relative;
+}
+
+.folder-bar .list-group .list-group-item:hover .delete-position {
+  display: block;
+}
+
+.folder-bar .list-group .list-group-item:hover .edit-position {
+  display: block;
+}
+
 .folder-bar .list-group .fa-folder {
   margin-right: 5px;
+}
+
+.folder-bar .list-group .delete-position {
+  position: absolute;
+  top: 3px;
+  right: 65px;
+  display: none;
+}
+
+.folder-bar .list-group .delete-position:hover {
+  color: #59b1eb;
+}
+
+.folder-bar .list-group .edit-position {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  display: none;
+}
+
+.folder-bar .list-group .edit-position:hover {
+  color: #59b1eb;
 }
 
 .file-bar {

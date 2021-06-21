@@ -22,6 +22,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 </head>
 <body>
@@ -87,5 +90,6 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{ mix('js/script.js') }}"></script>
 </body>
 </html>
