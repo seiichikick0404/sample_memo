@@ -16,7 +16,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        <form action="{{ route('memo.create_folder') }}" id="folder_form" method="POST">
+                        <form action="{{ route('memo.update_folder') }}" id="folder_edit_form" method="POST">
                         @csrf
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">フォルダ名</label>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                            <button type="button" class="btn btn-primary">保存する</button>
+                            <button type="submit" form="folder_edit_form" class="btn btn-primary">保存する</button>
                         </div>
                     </div>
                 </div>

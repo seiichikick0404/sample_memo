@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Folder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 
 
 class FolderController extends Controller
@@ -54,7 +55,7 @@ class FolderController extends Controller
     {
         // ログイン済み かつ POSTの場合
         if (auth::check() && $request){
-            $folder = new folder;
+            $folder = new Folder;
 
              //ログイン中のユーザーid取得
             $user_id = Auth::id();
@@ -88,9 +89,10 @@ class FolderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    // フォルダ編集処理
+    public function edit(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -100,9 +102,31 @@ class FolderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        // ログイン済み かつ POSTの場合
+        if (auth::check() && $request){
+            $folder = new Folder;
+
+            $int_edit_id = $request->input('folder_id');
+            // 数値に変換
+            $edit_id = (int) $int_edit_id;
+            $edit_name = $request->input('folder_name');
+
+             //ログイン中のユーザーid取得
+            $user_id = Auth::id();
+
+            $folder = DB::table('folders')
+            ->where('folder_id', $edit_id)
+            ->update(['folder_name'=> $edit_name]);
+
+            
+            return redirect('/memo');
+
+        }else {
+            return redirect('/memo');
+        }
     }
 
     /**
