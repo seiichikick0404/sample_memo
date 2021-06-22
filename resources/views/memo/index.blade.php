@@ -45,7 +45,7 @@
                     {{ $folder->folder_name }}
                     <!-- モダール用ボタン -->
                     <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}">編集</button>
-                    <button type="button" class="btn btn-danger delete-position" data-toggle="modal">削除</button>
+                    <button class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder') }}?id={{ $folder->folder_id }}'">削除</button>
                     <!-- モーダル部分始まり -->
                 </a>
             @else 
@@ -54,9 +54,11 @@
                     {{ mb_substr($folder->folder_name, 0, 11)."..." }}
                     <!-- モダール用ボタン -->
                     <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}">編集</button>
-                    <button type="button" class="btn btn-danger delete-position" data-toggle="modal">削除</button>
+                    <button class="btn btn-danger delete-position" onclick="location.href='./index.html'">削除</button>
                     <!-- モーダル部分始まり -->
                 </a>
+
+               
                 
             @endif
             @endforeach

@@ -24,8 +24,7 @@ class MemoController extends Controller
             $folders = DB::table('folders')
             ->select('folder_name', 'folder_id')
             ->where('user_id', $user_id)->get();
-
-        
+            
             return view('memo.index', ['folders'=> $folders,
                                        'select_folder'=>session()->get('select_folder')
                                       ]);
