@@ -4,6 +4,16 @@
 <div class="container-fluid">
     <div class="row memo-container">
         <div class="folder-bar col-3">
+            <div class="folder-bar-header">
+                <div class="row align-items-center">
+                    <div class="col-9 user-name-box">
+                        {{ $user_name }}さんお帰りなさい
+                    </div>
+                    <div class="col-3 folder-bar-nav">
+                        <button type="button" class="btn btn-primary"><i class="fas fa-sign-out-alt"></i></button>
+                    </div>
+                </div>
+            </div>
 
             
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -37,6 +47,7 @@
 
 
             <!-- リスト表示 -->
+            <h2 class="folder-title">フォルダリスト</h2>
             <div class="list-group">
             @foreach ($folders as $folder)
             @if (mb_strlen($folder->folder_name) <= 11)

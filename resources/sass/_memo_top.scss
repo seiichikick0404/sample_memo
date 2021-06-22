@@ -9,10 +9,19 @@
     border-right: solid 1px #d8d8d8;
     position: relative;
 
+    & .folder-bar-header {
+        margin-top: 0.7rem;
+    }
+
     & .modal-btn {
         position: absolute;
         bottom: 3rem;
         left: 3rem;
+    }
+
+    & .folder-title {
+        color: #495057;
+        margin-top: 10%;
     }
 
     & .list-group {

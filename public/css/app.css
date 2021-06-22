@@ -11,10 +11,19 @@
   position: relative;
 }
 
+.folder-bar .folder-bar-header {
+  margin-top: 0.7rem;
+}
+
 .folder-bar .modal-btn {
   position: absolute;
   bottom: 3rem;
   left: 3rem;
+}
+
+.folder-bar .folder-title {
+  color: #495057;
+  margin-top: 10%;
 }
 
 .folder-bar .list-group a {
