@@ -21,12 +21,19 @@ class MemoController extends Controller
         if (auth::check()){
             //認証ユーザーのid取得
             $user_id = Auth::id();
+            //認証ユーザー名取得
+            $user = Auth::user();
+            $user_name = $user->name;
+
             $folders = DB::table('folders')
             ->select('folder_name', 'folder_id')
-            ->where('user_id', $user_id)->get();
+            ->where('user_id', $user_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
             
             return view('memo.index', ['folders'=> $folders,
-                                       'select_folder'=>session()->get('select_folder')
+                                       'select_folder'=>session()->get('select_folder'),
+                                       'user_name'=> $user_name
                                       ]);
         }
     }
