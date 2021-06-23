@@ -30,9 +30,17 @@ class MemoController extends Controller
             ->where('user_id', $user_id)
             ->orderBy('created_at', 'desc')
             ->get();
+
+            // 選択中のフォルダ取得
+            $select_folder = session()->get('select_folder');
+            // foreach ($select_folder as $folder){
+            //     $select_folder_id = $folder->folder_id;
+            // }           
+            
+            // dd($select_folder->folder_id);
             
             return view('memo.index', ['folders'=> $folders,
-                                       'select_folder'=>session()->get('select_folder'),
+                                       'select_folder'=> $select_folder,
                                        'user_name'=> $user_name
                                       ]);
         }

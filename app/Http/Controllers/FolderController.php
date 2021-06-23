@@ -27,7 +27,7 @@ class FolderController extends Controller
         $id = $request->id;
         $folder = DB::table('folders')
         ->where('folder_id', $id)
-        ->get();
+        ->first();
         session()->put('select_folder', $folder);
 
         // dd($folder);

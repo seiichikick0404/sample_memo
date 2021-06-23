@@ -45,13 +45,13 @@
             </div>
            
 
-
+{{ $select_folder->folder_id }}
             <!-- リスト表示 -->
             <h2 class="folder-title">フォルダリスト</h2>
             <div class="list-group">
             @foreach ($folders as $folder)
             @if (mb_strlen($folder->folder_name) <= 11)
-                <a href="#" class="list-group-item list-group-item-action ">
+                <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
                     <i class="far fa-folder"></i>
                     {{ $folder->folder_name }}
                     <!-- モダール用ボタン -->
@@ -60,7 +60,7 @@
                     <!-- モーダル部分始まり -->
                 </a>
             @else 
-                <a href="#" class="list-group-item list-group-item-action ">
+            <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
                     <i class="far fa-folder"></i>
                     {{ mb_substr($folder->folder_name, 0, 11)."..." }}
                     <!-- モダール用ボタン -->
@@ -113,9 +113,42 @@
 
         
         <div class="file-bar col-3">
+            <div class="button-wrap">
+                <button type="submit" class="btn btn-danger" formaction=""><i class="fas fa-trash-alt"></i></button>
+                <button type="submit" class="btn btn-primary" formaction=""><i class="far fa-edit"></i></button>
+            </div>
+            
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+              </ul>
         </div>
         <div class="main-content col-6">
-
+            <div class="row">
+                <div class="col-9 h-100">
+                    <!-----ここから追加する----->
+                    
+                    <form class="w-100 h-100" method="post">
+                        @csrf
+                        <input type="hidden" name="edit_id" value="" />
+                        <div id="memo-menu justfy-content">
+                            <button type="submit" class="btn btn-success" formaction=""><i class="fas fa-save"></i></button>
+                            <button type="submit" class="btn btn-primary" formaction=""><i class="far fa-edit"></i></button>
+                        </div>
+                        <input type="text" id="memo-title" name="edit_title" placeholder="タイトルを入力する..." />
+                        <textarea id="memo-content" name="edit_content" placeholder="内容を入力する..."></textarea>
+                    </form>
+                    
+                    <!-- <div class="mt-3 alert alert-info">
+                        <i class="fas fa-info-circle"></i>メモを新規作成するか選択してください。
+                    </div> -->
+                
+                    <!-----ここまで追加する----->
+                </div>
+            </div>
         </div>
     </div>
 </div>
