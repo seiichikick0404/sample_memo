@@ -5,6 +5,10 @@
   height: 100vh;
 }
 
+.memo-container button {
+  z-index: 10;
+}
+
 .folder-bar {
   background-color: #F2F2F2;
   border-right: solid 1px #d8d8d8;
@@ -28,6 +32,11 @@
 
 .folder-bar .list-group a {
   position: relative;
+  color: #495057;
+}
+
+.folder-bar .list-group .active {
+  color: #FFF;
 }
 
 .folder-bar .list-group .list-group-item:hover .delete-position {
@@ -58,6 +67,7 @@
   top: 3px;
   right: 5px;
   display: none;
+  border-color: #fff;
 }
 
 .folder-bar .list-group .edit-position:hover {
@@ -67,6 +77,10 @@
 .file-bar {
   background-color: white;
   border-right: solid 1px #d8d8d8;
+}
+
+.file-bar .active {
+  background-color: gba(0, 0, 0, 0.6);
 }
 
 .main-content {

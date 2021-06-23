@@ -51,23 +51,28 @@
             <div class="list-group">
             @foreach ($folders as $folder)
             @if (mb_strlen($folder->folder_name) <= 11)
-                <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
-                    <i class="far fa-folder"></i>
-                    {{ $folder->folder_name }}
+                <li class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
+                    <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="@if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif" >
+                        <i class="far fa-folder"></i>
+                        {{ $folder->folder_name }}
+                        
+                    </a>
+                    <!-- モダール用ボタン -->
+                    <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}">編集</button>
+                    <button type="button" class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder', ['id' => $folder->folder_id]) }}'">削除</button>
+                    <!-- モーダル部分始まり -->
+                </li>
+            @else 
+                <li class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
+                    <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="@if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif" >
+                        <i class="far fa-folder"></i>
+                        {{ mb_substr($folder->folder_name, 0, 11)."..." }}
+                    </a>
                     <!-- モダール用ボタン -->
                     <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}">編集</button>
                     <button class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder') }}?id={{ $folder->folder_id }}'">削除</button>
                     <!-- モーダル部分始まり -->
-                </a>
-            @else 
-            <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
-                    <i class="far fa-folder"></i>
-                    {{ mb_substr($folder->folder_name, 0, 11)."..." }}
-                    <!-- モダール用ボタン -->
-                    <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}">編集</button>
-                    <button class="btn btn-danger delete-position" onclick="location.href='./index.html'">削除</button>
-                    <!-- モーダル部分始まり -->
-                </a>
+                </li>
 
                
                 
@@ -119,11 +124,9 @@
             </div>
             
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+            @foreach ($memos as $memo)
+            <li class="list-group-item">{{ $memo->title }}</li>
+            @endforeach
               </ul>
         </div>
         <div class="main-content col-6">

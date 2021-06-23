@@ -141,7 +141,9 @@ class FolderController extends Controller
         $folder = new Folder;
         $folder = DB::table('folders')
         ->where('folder_id', $request->id)
-        ->delete();
+        ->get();
+        dd($folder);
+        // ->delete();
 
         return redirect()->route('memo.index');
     }
