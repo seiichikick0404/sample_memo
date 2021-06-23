@@ -57,10 +57,10 @@ class FolderController extends Controller
         if (auth::check() && $request){
             $folder = new Folder;
 
-             //ログイン中のユーザーid取得
+            // ログイン中のユーザーid取得
             $user_id = Auth::id();
 
-            //フォルダ登録処理
+            // フォルダ登録処理
             $folder->folder_name = $request->input('folder_name');
             $folder->user_id = $user_id;
             

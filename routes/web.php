@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/memo/select_folder', [FolderController::class, 'select'])->name('memo.select_folder');
     Route::post('/memo/update_folder', [FolderController::class, 'update'])->name('memo.update_folder');
     Route::get('/memo/destroy_folder', [FolderController::class, 'destroy'])->name('memo.destroy_folder');
+    Route::get('/memo/select_memo', [MemoController::class, 'select_memo'])->name('memo.select_memo');
+    Route::get('/memo/create_memo', [MemoController::class, 'store'])->name('memo.create_memo');
 
 
 });

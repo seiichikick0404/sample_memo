@@ -79,8 +79,19 @@
   border-right: solid 1px #d8d8d8;
 }
 
-.file-bar .active {
-  background-color: gba(0, 0, 0, 0.6);
+.file-bar a {
+  color: #495057;
+  border-radius: 3px;
+}
+
+.file-bar a:hover {
+  color: #495057;
+}
+
+.file-bar .list-group .active {
+  background-color: rgba(0, 0, 0, 0.15);
+  color: #495057;
+  border-color: #d2d3d4;
 }
 
 .main-content {

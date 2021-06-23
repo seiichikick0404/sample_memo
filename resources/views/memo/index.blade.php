@@ -120,13 +120,20 @@
         <div class="file-bar col-3">
             <div class="button-wrap">
                 <button type="submit" class="btn btn-danger" formaction=""><i class="fas fa-trash-alt"></i></button>
-                <button type="submit" class="btn btn-primary" formaction=""><i class="far fa-edit"></i></button>
+                <button type="submit" class="btn btn-primary" onclick="location.href='{{ route('memo.create_memo', ['id'=> $select_folder->folder_id ]) }}'" formaction=""><i class="far fa-edit"></i></button>
             </div>
             
             <ul class="list-group list-group-flush">
-            @foreach ($memos as $memo)
-            <li class="list-group-item">{{ $memo->title }}</li>
-            @endforeach
+            @if ($select_memo OR $memos)
+                @foreach ($memos as $memo)
+                
+                <a href="{{ route('memo.select_memo', ['id' => $memo->memo_id]) }}" class="list-group-item @if ($select_memo) {{ $select_memo->memo_id == $memo->memo_id ? 'active' : '' }} @endif" >
+                    {{ $memo->title }}
+                </a>
+                @endforeach
+            @else
+                <i class="fas fa-info-circle"></i>メモを新規作成するか選択してください。
+            @endif
               </ul>
         </div>
         <div class="main-content col-6">
@@ -141,8 +148,13 @@
                             <button type="submit" class="btn btn-success" formaction=""><i class="fas fa-save"></i></button>
                             <button type="submit" class="btn btn-primary" formaction=""><i class="fas fa-lock"></i></button>
                         </div>
+                        @if ($select_memo)
+                            <input type="text" id="memo-title" name="edit_title" value={{ $select_memo->title }} placeholder="タイトルを入力する..." />
+                            <textarea id="memo-content" name="edit_content" placeholder="内容を入力する...">{{ $select_memo->text }}</textarea>
+                        @else
                         <input type="text" id="memo-title" name="edit_title" placeholder="タイトルを入力する..." />
                         <textarea id="memo-content" name="edit_content" placeholder="内容を入力する..."></textarea>
+                        @endif
                     </form>
                     
                     <!-- <div class="mt-3 alert alert-info">
