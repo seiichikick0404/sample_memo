@@ -17,10 +17,8 @@ class CreateMemosTable extends Migration
             $table->bigIncrements('memo_id');
             $table->string('title');
             $table->string('text');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('folder_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('folder_id')->references('folder_id')->on('folders');
+            $table->integer('user_id');
+            $table->integer('folder_id');
             $table->timestamps();
         });
     }
