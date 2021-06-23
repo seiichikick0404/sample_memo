@@ -109,6 +109,13 @@ class MemoController extends Controller
         // dd($memo);
         $memo->save();
 
+        // 新規メモ取得
+        $session_memo = DB::table('memos')
+        ->orderBy('created_at', 'desc')
+        ->first();
+        
+        // セッション更新
+        session()->put('select_memo', $session_memo);
         return redirect()->route('memo.index');
     }
 
