@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/memo/select_memo', [MemoController::class, 'select_memo'])->name('memo.select_memo');
     Route::get('/memo/create_memo', [MemoController::class, 'store'])->name('memo.create_memo');
     Route::get('logout', [LoginController::class, 'logout'])->name('memo.logout');
+    Route::get('/memo/destroy_memo', [MemoController::class, 'destroy'])->name('memo.destroy_memo');
 
 
 });
