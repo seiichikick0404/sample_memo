@@ -28,20 +28,17 @@ class MemoController extends Controller
 
             // 選択中のフォルダ取得
             $select_folder = session()->get('select_folder');
-            // dd($select_folder);
-
+            
             // 選択中のメモ取得
             $select_memo = session()->get('select_memo');
-            // dd($select_memo);
             
-            //  dd($select_memo);
-
             // フォルダ一覧取得
             $folders = DB::table('folders')
             ->select('folder_name', 'folder_id')
             ->where('user_id', $user_id)
             ->orderBy('created_at', 'desc')
             ->get();
+
 
             // メモ一覧取得
             if (isset($select_folder)){
@@ -53,6 +50,7 @@ class MemoController extends Controller
             else{
                 $memos = 'none_object';
             }
+
             
 
             return view('memo.index', ['folders'=> $folders,
