@@ -120,7 +120,7 @@
         <div class="file-bar col-3">
             <div class="button-wrap">
                 @if ($select_folder)
-                    <button type="submit" class="btn btn-danger" formaction=""><i class="fas fa-trash-alt"></i></button>
+                    <button type="submit" class="btn btn-danger"  onclick="location.href='{{ route('memo.destroy_memo', ['id'=> $select_memo->memo_id ]) }}'" formaction=""><i class="fas fa-trash-alt"></i></button>
                     <button type="submit" class="btn btn-primary" onclick="location.href='{{ route('memo.create_memo', ['id'=> $select_folder->folder_id ]) }}'" formaction=""><i class="far fa-edit"></i></button>
                 @else 
                     <button type="submit" class="btn btn-danger" formaction=""><i class="fas fa-trash-alt"></i></button>
@@ -131,7 +131,6 @@
             <ul class="list-group list-group-flush">
             @if ($select_folder AND $folders)
                 @foreach ($memos as $memo)
-                
                 <a href="{{ route('memo.select_memo', ['id' => $memo->memo_id]) }}" class="list-group-item @if ($select_memo) {{ $select_memo->memo_id == $memo->memo_id ? 'active' : '' }} @endif" >
                     {{ $memo->title }}
                 </a>

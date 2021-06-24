@@ -53,9 +53,6 @@ class MemoController extends Controller
             }
             
 
-            // dd($memos);            
-            // dd($select_folder->folder_id);
-            
             return view('memo.index', ['folders'=> $folders,
                                        'select_folder'=> $select_folder,
                                        'user_name'=> $user_name,
@@ -166,8 +163,13 @@ class MemoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        DB::table('memos')
+        ->where('memo_id', $id)
+        ->delete();
+
+        return redirect()->route('memo.index');
     }
 }
