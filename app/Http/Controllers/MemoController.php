@@ -42,10 +42,16 @@ class MemoController extends Controller
             ->get();
 
             // メモ一覧取得
-            $memos = DB::table('memos')
-            ->where('folder_id', $select_folder->folder_id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+            if (isset($select_folder)){
+                $memos = DB::table('memos')
+                ->where('folder_id', $select_folder->folder_id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+            }
+            else{
+                $memos = 'none_object';
+            }
+            
 
             // dd($memos);            
             // dd($select_folder->folder_id);
@@ -53,6 +59,7 @@ class MemoController extends Controller
             return view('memo.index', ['folders'=> $folders,
                                        'select_folder'=> $select_folder,
                                        'user_name'=> $user_name,
+                                       'user_id' => $user_id,
                                        'memos' => $memos,
                                        'select_memo' => $select_memo,
                                       ]);
