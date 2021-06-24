@@ -28,11 +28,13 @@ class MemoController extends Controller
 
             // 選択中のフォルダ取得
             $select_folder = session()->get('select_folder');
+            // dd($select_folder);
 
             // 選択中のメモ取得
             $select_memo = session()->get('select_memo');
-
             // dd($select_memo);
+            
+            //  dd($select_memo);
 
             // フォルダ一覧取得
             $folders = DB::table('folders')
@@ -152,9 +154,27 @@ class MemoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $id = $request->edit_id;
+        $title = $request->input('edit_title');
+        $content = $request->input('edit_content');
+
+        $memo = DB::table('memos')
+        ->where('memo_id', $id)
+        ->update(['title'=> $title, 'text'=> $content]);
+
+        // 新規メモ取得
+        $session_memo = DB::table('memos')
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        // dd($session_memo);
+        
+        // セッション更新
+        session()->put('select_memo', $session_memo);
+        return redirect()->route('memo.index');
     }
 
     /**
@@ -164,11 +184,20 @@ class MemoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
-    {
+    {   
+        // 削除
         $id = $request->id;
         DB::table('memos')
         ->where('memo_id', $id)
         ->delete();
+
+
+        $memo = DB::table('memos')
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        // メモ セッション更新
+        session()->put('select_memo', $memo);
 
         return redirect()->route('memo.index');
     }

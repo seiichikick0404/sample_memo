@@ -119,8 +119,11 @@
         
         <div class="file-bar col-3">
             <div class="button-wrap">
-                @if ($select_folder)
+                @if ($select_folder AND $select_memo)
                     <button type="submit" class="btn btn-danger"  onclick="location.href='{{ route('memo.destroy_memo', ['id'=> $select_memo->memo_id ]) }}'" formaction=""><i class="fas fa-trash-alt"></i></button>
+                    <button type="submit" class="btn btn-primary" onclick="location.href='{{ route('memo.create_memo', ['id'=> $select_folder->folder_id ]) }}'" formaction=""><i class="far fa-edit"></i></button>
+                @elseif ($select_folder)
+                    <button type="submit" class="btn btn-danger"  formaction=""><i class="fas fa-trash-alt"></i></button>
                     <button type="submit" class="btn btn-primary" onclick="location.href='{{ route('memo.create_memo', ['id'=> $select_folder->folder_id ]) }}'" formaction=""><i class="far fa-edit"></i></button>
                 @else 
                     <button type="submit" class="btn btn-danger" formaction=""><i class="fas fa-trash-alt"></i></button>
@@ -142,30 +145,34 @@
         </div>
         <div class="main-content col-6">
             <div class="row">
-                <div class="col-9 h-100">
+                <div class="col-12 h-100">
                     <!-----ここから追加する----->
+
                     
-                    <form class="w-100 h-100" method="post">
+                    @if ($select_memo)
+                    <form class="w-100 h-100" action="" method="post">
+                        @csrf
+                        <input type="hidden" name="edit_id" value="{{ $select_memo->memo_id }}" />
+                        <div id="memo-menu" class="memo-wrap">
+                            <button type="submit" class="btn btn-success save-btn" formaction="{{ route('memo.update_memo') }}"><i class="fas fa-save"></i></button>
+                            <button type="submit" class="btn btn-primary lock-btn" formaction=""><i class="fas fa-lock"></i></button>
+                        </div>
+                        <input type="text" id="memo-title" name="edit_title" value={{ $select_memo->title }} placeholder="タイトルを入力する..." />
+                        <textarea id="memo-content" name="edit_content" placeholder="内容を入力する...">{{ $select_memo->text }}</textarea>
+                    </form>
+
+                    @else
+                    <form class="w-100 h-100" action="" method="post">
                         @csrf
                         <input type="hidden" name="edit_id" value="" />
                         <div id="memo-menu justfy-content">
-                            <button type="submit" class="btn btn-success" formaction=""><i class="fas fa-save"></i></button>
-                            <button type="submit" class="btn btn-primary" formaction=""><i class="fas fa-lock"></i></button>
+                            <button type="button" class="btn btn-success save-btn" formaction=""><i class="fas fa-save"></i></button>
+                            <button type="button" class="btn btn-primary lock-btn" formaction=""><i class="fas fa-lock"></i></button>
                         </div>
-                        @if ($select_memo)
-                            <input type="text" id="memo-title" name="edit_title" value={{ $select_memo->title }} placeholder="タイトルを入力する..." />
-                            <textarea id="memo-content" name="edit_content" placeholder="内容を入力する...">{{ $select_memo->text }}</textarea>
-                        @else
-                        <input type="text" id="memo-title" name="edit_title" placeholder="タイトルを入力する..." />
+                        <input type="text" id="memo-title" name="edit_title"  placeholder="タイトルを入力する..." />
                         <textarea id="memo-content" name="edit_content" placeholder="内容を入力する..."></textarea>
-                        @endif
                     </form>
-                    
-                    <!-- <div class="mt-3 alert alert-info">
-                        <i class="fas fa-info-circle"></i>メモを新規作成するか選択してください。
-                    </div> -->
-                
-                    <!-----ここまで追加する----->
+                    @endif
                 </div>
             </div>
         </div>

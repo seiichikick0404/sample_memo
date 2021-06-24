@@ -84,6 +84,25 @@
 .file-bar {
     background-color: white;
     border-right: solid 1px #d8d8d8;
+    position: relative;
+
+  
+    & .list-group {
+        margin-top: 3rem;
+    }
+
+    & .btn-danger {
+        position: absolute;
+        top: 0;
+        right: 44px;
+    }
+
+    & .btn-primary {
+        position: absolute;
+        top: 0;
+        right: 0px;
+    }
+    
 
     & a {
         color: #495057;
@@ -109,6 +128,27 @@
 
 .main-content {
     background-color: white;
+    position: relative;
+
+    & .row {
+        width: 100%;
+    }
+
+    & .memo-wrap {
+        width: 100%;
+    }
+
+    & .save-btn {
+        position: absolute;
+        top: 0;
+        right: 40px;
+    }
+
+    & .lock-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
     
 }
 

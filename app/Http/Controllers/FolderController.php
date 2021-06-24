@@ -24,11 +24,21 @@ class FolderController extends Controller
     // フォルダ選択
     public function select(Request $request)
     {
+        // フォルダ セッション更新
         $id = $request->id;
         $folder = DB::table('folders')
         ->where('folder_id', $id)
         ->first();
         session()->put('select_folder', $folder);
+
+        // メモ セッション更新
+        $memo = DB::table('memos')
+        ->where('folder_id', $id)
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        
+        session()->put('select_memo', $memo);
 
         // dd($folder);
 
@@ -65,6 +75,12 @@ class FolderController extends Controller
             $folder->user_id = $user_id;
             
             $folder->save();
+
+            // フォルダ セッション更新
+            $folder = DB::table('folders')
+            ->where('folder_id', $folder->folder_id)
+            ->first();
+            session()->put('select_folder', $folder);
             return redirect('/memo');
 
         }else {

@@ -77,6 +77,23 @@
 .file-bar {
   background-color: white;
   border-right: solid 1px #d8d8d8;
+  position: relative;
+}
+
+.file-bar .list-group {
+  margin-top: 3rem;
+}
+
+.file-bar .btn-danger {
+  position: absolute;
+  top: 0;
+  right: 44px;
+}
+
+.file-bar .btn-primary {
+  position: absolute;
+  top: 0;
+  right: 0px;
 }
 
 .file-bar a {
@@ -96,6 +113,27 @@
 
 .main-content {
   background-color: white;
+  position: relative;
+}
+
+.main-content .row {
+  width: 100%;
+}
+
+.main-content .memo-wrap {
+  width: 100%;
+}
+
+.main-content .save-btn {
+  position: absolute;
+  top: 0;
+  right: 40px;
+}
+
+.main-content .lock-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 /*--メモ投稿画面--*/
