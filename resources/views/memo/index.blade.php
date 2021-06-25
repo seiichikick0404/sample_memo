@@ -136,6 +136,7 @@
                 @foreach ($memos as $memo)
                 <a href="{{ route('memo.select_memo', ['id' => $memo->memo_id]) }}" class="list-group-item @if ($select_memo) {{ $select_memo->memo_id == $memo->memo_id ? 'active' : '' }} @endif" >
                     {{ $memo->title }}
+                <p class="memo_date">{{$memo->created_at}}</p>
                 </a>
                 @endforeach
             @else
