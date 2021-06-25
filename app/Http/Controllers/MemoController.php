@@ -19,8 +19,6 @@ class MemoController extends Controller
     {
         //フォルダ一覧表示
         if (auth::check()){
-            //認証ユーザーのid取得
-            $user_id = Auth::id();
 
             //認証ユーザー名取得
             $user = Auth::user();
@@ -35,7 +33,7 @@ class MemoController extends Controller
             // フォルダ一覧取得
             $folders = DB::table('folders')
             ->select('folder_name', 'folder_id')
-            ->where('user_id', $user_id)
+            ->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -55,7 +53,6 @@ class MemoController extends Controller
             return view('memo.index', ['folders'=> $folders,
                                        'select_folder'=> $select_folder,
                                        'user_name'=> $user_name,
-                                       'user_id' => $user_id,
                                        'memos' => $memos,
                                        'select_memo' => $select_memo,
                                       ]);
@@ -70,8 +67,6 @@ class MemoController extends Controller
         $memo = DB::table('memos')
         ->where('memo_id', $id)
         ->first();
-
-        // dd($memo);
 
         session()->put('select_memo', $memo);
 
@@ -109,7 +104,6 @@ class MemoController extends Controller
         $memo->text = NUll;
         $memo->user_id = $user_id;
         $memo->folder_id = $folder_id;
-        // dd($memo);
         $memo->save();
 
         // 新規メモ取得
@@ -167,8 +161,6 @@ class MemoController extends Controller
         ->orderBy('created_at', 'desc')
         ->first();
 
-        // dd($session_memo);
-        
         // セッション更新
         session()->put('select_memo', $session_memo);
         return redirect()->route('memo.index');
@@ -189,12 +181,12 @@ class MemoController extends Controller
         ->delete();
 
 
-        $memo = DB::table('memos')
+        $session_memo = DB::table('memos')
         ->orderBy('created_at', 'desc')
         ->first();
 
         // メモ セッション更新
-        session()->put('select_memo', $memo);
+        session()->put('select_memo', $session_memo);
 
         return redirect()->route('memo.index');
     }
