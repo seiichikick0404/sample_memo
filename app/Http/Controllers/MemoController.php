@@ -51,7 +51,6 @@ class MemoController extends Controller
                 $memos = 'none_object';
             }
 
-            
 
             return view('memo.index', ['folders'=> $folders,
                                        'select_folder'=> $select_folder,
@@ -65,7 +64,7 @@ class MemoController extends Controller
 
     // メモ選択機能
     public function select_memo(Request $request)
-    {   
+    {  
         //メモid取得
         $id = $request->id;
         $memo = DB::table('memos')
@@ -96,7 +95,7 @@ class MemoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $memo = new Memo;
 
         // ログイン中のユーザーid取得
@@ -117,7 +116,7 @@ class MemoController extends Controller
         $session_memo = DB::table('memos')
         ->orderBy('created_at', 'desc')
         ->first();
-        
+
         // セッション更新
         session()->put('select_memo', $session_memo);
         return redirect()->route('memo.index');

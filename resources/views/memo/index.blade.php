@@ -58,8 +58,8 @@
                         
                     </a>
                     <!-- モダール用ボタン -->
-                    <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}">編集</button>
-                    <button type="button" class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder', ['id' => $folder->folder_id]) }}'">削除</button>
+                    <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}"><i class="fas fa-save"></i></button>
+                    <button type="button" class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder', ['id' => $folder->folder_id]) }}'"><i class="fas fa-trash-alt"></i></button>
                     <!-- モーダル部分始まり -->
                 </li>
             @else 
@@ -69,8 +69,8 @@
                         {{ mb_substr($folder->folder_name, 0, 11)."..." }}
                     </a>
                     <!-- モダール用ボタン -->
-                    <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}">編集</button>
-                    <button class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder') }}?id={{ $folder->folder_id }}'">削除</button>
+                    <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}"><i class="fas fa-save"></i></button>
+                    <button class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder') }}?id={{ $folder->folder_id }}'"><i class="fas fa-trash-alt"></i></button>
                     <!-- モーダル部分始まり -->
                 </li>
 
