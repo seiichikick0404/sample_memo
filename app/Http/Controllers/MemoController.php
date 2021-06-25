@@ -7,6 +7,7 @@ use App\Models\Folder;
 use App\Models\Memo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Services\GetNewMemo;
 
 class MemoController extends Controller
 {
@@ -107,9 +108,7 @@ class MemoController extends Controller
         $memo->save();
 
         // 新規メモ取得
-        $session_memo = DB::table('memos')
-        ->orderBy('created_at', 'desc')
-        ->first();
+        $session_memo = GetNewMemo::GetMemo();
 
         // セッション更新
         session()->put('select_memo', $session_memo);
@@ -157,12 +156,11 @@ class MemoController extends Controller
         ->update(['title'=> $title, 'text'=> $content]);
 
         // 新規メモ取得
-        $session_memo = DB::table('memos')
-        ->orderBy('created_at', 'desc')
-        ->first();
+        $session_memo = GetNewMemo::GetMemo();
 
         // セッション更新
         session()->put('select_memo', $session_memo);
+
         return redirect()->route('memo.index');
     }
 
@@ -173,17 +171,15 @@ class MemoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
-    {   
+    {
         // 削除
         $id = $request->id;
         DB::table('memos')
         ->where('memo_id', $id)
         ->delete();
 
-
-        $session_memo = DB::table('memos')
-        ->orderBy('created_at', 'desc')
-        ->first();
+        // 新規メモ取得
+        $session_memo = GetNewMemo::GetMemo();
 
         // メモ セッション更新
         session()->put('select_memo', $session_memo);
