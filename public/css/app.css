@@ -136,6 +136,12 @@
   right: 0;
 }
 
+.main-content .search {
+  position: absolute;
+  top: 0;
+  right: 80px;
+}
+
 /*--メモ投稿画面--*/
 
 #memo-title,

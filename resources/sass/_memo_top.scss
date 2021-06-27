@@ -127,6 +127,7 @@
 }
 
 .main-content {
+
     background-color: white;
     position: relative;
 
@@ -149,8 +150,14 @@
         top: 0;
         right: 0;
     }
-    
+
+    & .search {
+        position: absolute;
+        top: 0;
+        right: 80px;
+    }
 }
+
 
 
 /*--メモ投稿画面--*/

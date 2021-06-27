@@ -49,6 +49,7 @@
             <!-- リスト表示 -->
             <h2 class="folder-title">フォルダリスト</h2>
             <div class="list-group">
+            
             @foreach ($folders as $folder)
             @if (mb_strlen($folder->folder_name) <= 11)
                 <li class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
@@ -73,11 +74,9 @@
                     <button class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder') }}?id={{ $folder->folder_id }}'"><i class="fas fa-trash-alt"></i></button>
                     <!-- モーダル部分始まり -->
                 </li>
-
-               
-                
             @endif
             @endforeach
+
             </div>
 
             <!-- 切り替えボタンの設定 -->
@@ -157,6 +156,8 @@
                         <div id="memo-menu" class="memo-wrap">
                             <button type="submit" class="btn btn-success save-btn" formaction="{{ route('memo.update_memo') }}"><i class="fas fa-save"></i></button>
                             <button type="submit" class="btn btn-primary lock-btn" formaction=""><i class="fas fa-lock"></i></button>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary search" data-toggle="modal" data-target="#modal_search"><i class="fas fa-search"></i></button>
                         </div>
                         <input type="text" id="memo-title" name="edit_title" value={{ $select_memo->title }} placeholder="タイトルを入力する..." />
                         <textarea id="memo-content" name="edit_content" placeholder="内容を入力する...">{{ $select_memo->text }}</textarea>
@@ -169,11 +170,38 @@
                         <div id="memo-menu justfy-content">
                             <button type="button" class="btn btn-success save-btn" formaction=""><i class="fas fa-save"></i></button>
                             <button type="button" class="btn btn-primary lock-btn" formaction=""><i class="fas fa-lock"></i></button>
+                            <button type="button" class="btn btn-primary search" data-toggle="modal" data-target="#modal_search"><i class="fas fa-search"></i></button>
                         </div>
                         <input type="text" id="memo-title" name="edit_title"  placeholder="タイトルを入力する..." />
                         <textarea id="memo-content" name="edit_content" placeholder="内容を入力する..."></textarea>
                     </form>
                     @endif
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">メモ検索</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                            <form id="search-memo" method="GET" action="{{ route('memo.search_memo') }}">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">検索</label>
+                                    <input type="text" name="search" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="メモタイトル">
+                                </div>
+                            </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" form="search-memo" class="btn btn-primary">検索</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

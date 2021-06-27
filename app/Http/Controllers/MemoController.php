@@ -16,10 +16,11 @@ class MemoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //フォルダ一覧表示
         if (auth::check()){
+
 
             //認証ユーザー名取得
             $user = Auth::user();
@@ -27,10 +28,10 @@ class MemoController extends Controller
 
             // 選択中のフォルダ取得
             $select_folder = session()->get('select_folder');
-            
+
             // 選択中のメモ取得
             $select_memo = session()->get('select_memo');
-            
+
             // フォルダ一覧取得
             $folders = DB::table('folders')
             ->select('folder_name', 'folder_id')
@@ -45,9 +46,10 @@ class MemoController extends Controller
                 ->where('folder_id', $select_folder->folder_id)
                 ->orderBy('created_at', 'desc')
                 ->get();
-            }
-            else{
-                $memos = 'none_object';
+
+                // dd($memos);
+            }else {
+                $memos = 'empty_memos';
             }
 
 
@@ -185,5 +187,46 @@ class MemoController extends Controller
         session()->put('select_memo', $session_memo);
 
         return redirect()->route('memo.index');
+    }
+
+    // メモ検索
+    public function search(Request $request){
+
+        //認証ユーザー名取得
+        $user = Auth::user();
+        $user_name = $user->name;
+
+        // 検索された場合
+        if ($request->input('search')){
+
+
+            // フォルダ一覧取得
+            $folders = DB::table('folders')
+            ->select('folder_name', 'folder_id')
+            ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+            // 検索
+            $query = $request->input('search');
+            $memos = DB::table('memos')
+            ->where('title', 'like', '%'.$query.'%')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+            $select_folder = session()->remove('select_folder');
+            $select_memo = session()->remove('select_memo');
+
+            dd($memos);
+
+            return view('memo.index', [
+
+                                       'user_name'=> $user_name,
+                                       'memos' => $memos,
+                                       'folders' => $folders,
+                                       'select_folder'=> $select_folder,
+                                       'select_memo'=> $select_memo,
+                                      ]);
+        }
     }
 }
