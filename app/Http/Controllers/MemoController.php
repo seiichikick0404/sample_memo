@@ -24,7 +24,6 @@ class MemoController extends Controller
 
             //認証ユーザー名取得
             $user = Auth::user();
-            $user_name = $user->name;
 
             // 選択中のフォルダ取得
             $select_folder = session()->get('select_folder');
@@ -55,7 +54,7 @@ class MemoController extends Controller
 
             return view('memo.index', ['folders'=> $folders,
                                        'select_folder'=> $select_folder,
-                                       'user_name'=> $user_name,
+                                       'user'=> $user,
                                        'memos' => $memos,
                                        'select_memo' => $select_memo,
                                       ]);

@@ -7,7 +7,7 @@
             <div class="folder-bar-header">
                 <div class="row align-items-center">
                     <div class="col-9 user-name-box">
-                        {{ $user_name }}さんお帰りなさい
+                        {{ $user->name }}さんお帰りなさい
                     </div>
                     <div class="col-3 folder-bar-nav">
                         <button type="button" class="btn btn-primary" onclick="location.href='{{ route('memo.logout') }}'"><i class="fas fa-sign-out-alt"></i></button>
@@ -50,6 +50,13 @@
             <h2 class="folder-title">フォルダリスト</h2>
             <div class="list-group">
             
+            <li class="list-group-item list-group-item-action" >
+                
+                    <i class="far fa-folder"></i>
+                    全てのファイル
+                            
+                </a>
+            </li>
             @foreach ($folders as $folder)
             @if (mb_strlen($folder->folder_name) <= 11)
                 <li class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
