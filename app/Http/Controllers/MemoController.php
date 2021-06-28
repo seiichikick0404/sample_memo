@@ -27,6 +27,10 @@ class MemoController extends Controller
 
             // 選択中のフォルダ取得
             $select_folder = session()->get('select_folder');
+           
+
+            // 親フォルダの取得
+            $parent_folder = session()->get('parent_folder');
 
             // 選択中のメモ取得
             $select_memo = session()->get('select_memo');
@@ -38,18 +42,32 @@ class MemoController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
+            // $select_folder = '';
+            // session()->put('select_folder', $select_folder);
 
-            // メモ一覧取得
-            if (isset($select_folder)){
+
+            // メモ一覧取得(全てのメモ)
+            if ($parent_folder == 'all'){
+                $memos = DB::table('memos')
+                ->where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            }
+            // メモ一覧取得(フォルダに属する)
+            elseif (isset($select_folder) && $parent_folder == ''){
                 $memos = DB::table('memos')
                 ->where('folder_id', $select_folder->folder_id)
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-                // dd($memos);
             }else {
-                $memos = 'empty_memos';
+                $memos = 'no_object';
             }
+
+            // dd($memos);
+            // dd($select_folder);
+            // dd($parent_folder);
 
 
             return view('memo.index', ['folders'=> $folders,
@@ -57,6 +75,7 @@ class MemoController extends Controller
                                        'user'=> $user,
                                        'memos' => $memos,
                                        'select_memo' => $select_memo,
+                                       'parent_folder' =>  $parent_folder,
                                       ]);
         }
     }

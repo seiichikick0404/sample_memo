@@ -50,17 +50,16 @@
             <h2 class="folder-title">フォルダリスト</h2>
             <div class="list-group">
             
-            <li class="list-group-item list-group-item-action" >
-                
+            <li class="list-group-item list-group-item-action @if ($parent_folder) active  @endif " >
+                <a href="{{ route('memo.select_folder') }}?key=all" class="@if ($parent_folder) active  @endif " >
                     <i class="far fa-folder"></i>
                     全てのファイル
-                            
                 </a>
             </li>
             @foreach ($folders as $folder)
             @if (mb_strlen($folder->folder_name) <= 11)
-                <li class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
-                    <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="@if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif" >
+                <li class="list-group-item list-group-item-action @if ($select_folder AND $select_folder->folder_id == $folder->folder_id AND $parent_folder == NULL) active @endif  ">
+                    <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="@if ($select_folder AND $select_folder->folder_id == $folder->folder_id AND $parent_folder == NULL) active @endif " >
                         <i class="far fa-folder"></i>
                         {{ $folder->folder_name }}
                         
@@ -71,8 +70,8 @@
                     <!-- モーダル部分始まり -->
                 </li>
             @else 
-                <li class="list-group-item list-group-item-action @if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif  ">
-                    <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="@if ($select_folder) {{ $select_folder->folder_id == $folder->folder_id ? 'active' : '' }} @endif" >
+                <li class="list-group-item list-group-item-action @if ($select_folder AND $select_folder->folder_id == $folder->folder_id AND $parent_folder == NULL) active @endif   ">
+                    <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="@if ($select_folder AND $select_folder->folder_id == $folder->folder_id AND $parent_folder == NULL) active @endif " >
                         <i class="far fa-folder"></i>
                         {{ mb_substr($folder->folder_name, 0, 11)."..." }}
                     </a>
