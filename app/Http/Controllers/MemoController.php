@@ -42,9 +42,6 @@ class MemoController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-            // $select_folder = '';
-            // session()->put('select_folder', $select_folder);
-
 
             // メモ一覧取得(全てのメモ)
             if ($parent_folder == 'all'){

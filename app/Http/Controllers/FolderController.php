@@ -26,11 +26,17 @@ class FolderController extends Controller
     {
         // 全てのファイルフォルダが選択された場合
         if ($request->key ){
+            $user = Auth::user();
             $parent_folder = $request->key;
-            // dd($parent_folder);
+
             session()->put('parent_folder', $parent_folder);
 
-            // session()->remove('select_folder');
+            $memo = DB::table('memos')
+            ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+            session()->put('select_memo', $memo);
+
         }
         // 通常処理(フォルダ選択の場合)
         else {
