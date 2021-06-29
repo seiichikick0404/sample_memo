@@ -27,7 +27,6 @@ class MemoController extends Controller
 
             // 選択中のフォルダ取得
             $select_folder = session()->get('select_folder');
-           
 
             // 親フォルダの取得
             $parent_folder = session()->get('parent_folder');
@@ -61,10 +60,6 @@ class MemoController extends Controller
             }else {
                 $memos = 'no_object';
             }
-
-            // dd($memos);
-            // dd($select_folder);
-            // dd($parent_folder);
 
 
             return view('memo.index', ['folders'=> $folders,
