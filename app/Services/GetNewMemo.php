@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 
 class GetNewMemo
-{   
+{
     // 新規メモの取得
     public static function GetMemo(){
 
