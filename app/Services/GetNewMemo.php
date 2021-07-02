@@ -16,7 +16,6 @@ class GetNewMemo
         ->orderBy('created_at', 'desc')
         ->first();
 
-
         return $session_memo;
     }
 }
