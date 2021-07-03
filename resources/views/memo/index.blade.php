@@ -118,10 +118,10 @@
                 </div>
             </div>
         </div>
-            
+
         </div>
 
-        
+
         <div class="file-bar col-3">
             <div class="button-wrap">
                 @if ($select_folder AND $select_memo)
@@ -130,12 +130,12 @@
                 @elseif ($select_folder)
                     <button type="submit" class="btn btn-danger"  formaction=""><i class="fas fa-trash-alt"></i></button>
                     <button type="submit" class="btn btn-primary" onclick="location.href='{{ route('memo.create_memo', ['id'=> $select_folder->folder_id ]) }}'" formaction=""><i class="far fa-edit"></i></button>
-                @else 
+                @else
                     <button type="submit" class="btn btn-danger" formaction=""><i class="fas fa-trash-alt"></i></button>
                     <button type="submit" class="btn btn-primary" formaction=""><i class="far fa-edit"></i></button>
                 @endif
             </div>
-            
+
             <ul class="list-group list-group-flush">
             @if ($select_folder AND $folders AND count($memos) >= 1)
                 @foreach ($memos as $memo)
@@ -154,14 +154,19 @@
                 <div class="col-12 h-100">
                     <!-----ここから追加する----->
 
-                    
+
                     @if ($select_memo)
                     <form class="w-100 h-100" action="" method="post">
                         @csrf
                         <input type="hidden" name="edit_id" value="{{ $select_memo->memo_id }}" />
                         <div id="memo-menu" class="memo-wrap">
                             <button type="submit" class="btn btn-success save-btn" formaction="{{ route('memo.update_memo') }}"><i class="fas fa-save"></i></button>
-                            <button type="submit" class="btn btn-primary lock-btn" formaction=""><i class="fas fa-lock"></i></button>
+                            <form action="{{ route('memo.index') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="memo_key" value="exe_key">
+                            <button type="submit" class="btn btn-primary lock-btn"><i class="fas fa-lock"></i></button>
+                            </form>
+
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary search" data-toggle="modal" data-target="#modal_search"><i class="fas fa-search"></i></button>
                         </div>

@@ -21,7 +21,6 @@ class MemoController extends Controller
         //フォルダ一覧表示
         if (auth::check()){
 
-
             //認証ユーザー名取得
             $user = Auth::user();
 
@@ -74,7 +73,7 @@ class MemoController extends Controller
 
     // メモ選択機能
     public function select_memo(Request $request)
-    {  
+    {
         //メモid取得
         $id = $request->id;
         $memo = DB::table('memos')
