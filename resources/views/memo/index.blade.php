@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            
+
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -43,13 +43,13 @@
                     </div>
                 </div>
             </div>
-           
+
 
 
             <!-- リスト表示 -->
             <h2 class="folder-title">フォルダリスト</h2>
             <div class="list-group">
-            
+
             <li class="list-group-item list-group-item-action @if ($parent_folder) active  @endif " >
                 <a href="{{ route('memo.select_folder') }}?key=all" class="@if ($parent_folder) active  @endif " >
                     <i class="far fa-folder"></i>
@@ -62,20 +62,20 @@
                     <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="@if ($select_folder AND $select_folder->folder_id == $folder->folder_id AND $parent_folder == NULL) active @endif " >
                         <i class="far fa-folder"></i>
                         {{ $folder->folder_name }}
-                        
+
                     </a>
                     <!-- モダール用ボタン -->
                     <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}"><i class="fas fa-save"></i></button>
                     <button type="button" class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder', ['id' => $folder->folder_id]) }}'"><i class="fas fa-trash-alt"></i></button>
                     <!-- モーダル部分始まり -->
                 </li>
-            @else 
+            @else
                 <li class="list-group-item list-group-item-action @if ($select_folder AND $select_folder->folder_id == $folder->folder_id AND $parent_folder == NULL) active @endif   ">
                     <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="@if ($select_folder AND $select_folder->folder_id == $folder->folder_id AND $parent_folder == NULL) active @endif " >
                         <i class="far fa-folder"></i>
                         {{ mb_substr($folder->folder_name, 0, 11)."..." }}
                     </a>
-                    <!-- モダール用ボタン -->
+                    <!-- モーダル用ボタン -->
                     <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}"><i class="fas fa-save"></i></button>
                     <button class="btn btn-danger delete-position" onclick="location.href='{{ route('memo.destroy_folder') }}?id={{ $folder->folder_id }}'"><i class="fas fa-trash-alt"></i></button>
                     <!-- モーダル部分始まり -->
