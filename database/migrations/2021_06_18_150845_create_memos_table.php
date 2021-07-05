@@ -19,6 +19,7 @@ class CreateMemosTable extends Migration
             $table->string('text')->nullable();
             $table->integer('user_id');
             $table->integer('folder_id');
+            $table->string('key_flag')->nullable();
             $table->timestamps();
         });
     }
