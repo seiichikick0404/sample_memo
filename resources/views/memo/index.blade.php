@@ -161,12 +161,7 @@
                         <input type="hidden" name="edit_id" value="{{ $select_memo->memo_id }}" />
                         <div id="memo-menu" class="memo-wrap">
                             <button type="submit" class="btn btn-success save-btn" formaction="{{ route('memo.update_memo') }}"><i class="fas fa-save"></i></button>
-                            <form action="{{ route('memo.index') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="memo_key" value="exe_key">
-                            <button type="submit" class="btn btn-primary lock-btn"><i class="fas fa-lock"></i></button>
-                            </form>
-
+                            <button type="button" class="btn btn-primary lock-btn" onclick="location.href='{{ route('memo.lock', ['id'=> $select_memo->memo_id ]) }}'"><i class="fas fa-lock"></i></button>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary search" data-toggle="modal" data-target="#modal_search"><i class="fas fa-search"></i></button>
                         </div>
