@@ -25,13 +25,6 @@ class MemoController extends Controller
             //認証ユーザー名取得
             $user = Auth::user();
 
-            // メモにロックをかけていた場合
-            if ($request->input('memo_key')){
-                $memo_status = 'lock';
-
-                dd($memo_status);
-            }
-
             // 選択中のフォルダ取得
             $select_folder = session()->get('select_folder');
 
@@ -68,6 +61,8 @@ class MemoController extends Controller
                 $memos = 'no_object';
             }
 
+            // dd($select_memo->key_flag);
+
 
             return view('memo.index', ['folders'=> $folders,
                                        'select_folder'=> $select_folder,
@@ -96,13 +91,20 @@ class MemoController extends Controller
     // メモロック機能
     public function memo_lock(Request $request){
 
-        //認証ユーザ取得
-        $user = Auth::user();
+        if (Auth::user()){
 
-        // メモidの取得
-        $id = $request->id;
+            //認証ユーザ取得
+            $user = Auth::user();
 
+            // メモflag実行
+            $id = $request->id;
+            $memo = DB::table('memos')
+            ->where('memo_id', $id)
+            ->update(['key_flag'=> 'true']);
 
+            return redirect()->route('memo.index');
+
+        }
     }
 
     /**
