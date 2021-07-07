@@ -107,6 +107,18 @@ class MemoController extends Controller
         }
     }
 
+    // メモロック  解除
+    public function memo_lock_release(Request $request){
+
+        if (Auth::user()){
+
+            // 認証ユーザーの取得
+            $user = Auth::user();
+
+            
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
