@@ -170,9 +170,9 @@
                     </form>
 
                     @elseif ($select_memo AND $select_memo->key_flag == 'true')
-                    <form class="w-100 h-100" action="" method="post">
+                    <form class="w-100 h-100" action="{{ route('memo.lock_release') }}" method="post">
                         @csrf
-                        <input type="hidden" name="memo_lock" value="{{ $select_memo->memo_id }}" />
+                        <input type="hidden" name="memo_id" value="{{ $select_memo->memo_id }}" />
                         <div id="memo-menu" class="memo-wrap">
                             <button type="submit" class="btn btn-success save-btn" formaction="{{ route('memo.update_memo') }}"><i class="fas fa-save"></i></button>
                             <button type="button" class="btn btn-primary lock-btn" onclick="location.href='{{ route('memo.lock', ['id'=> $select_memo->memo_id ]) }}'"><i class="fas fa-lock"></i></button>

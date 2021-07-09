@@ -112,10 +112,18 @@ class MemoController extends Controller
 
         if (Auth::user()){
 
+            
+
             // 認証ユーザーの取得
             $user = Auth::user();
 
-            
+            // 選択されたメモid取得
+            $memo_id = $request->input('memo_id');
+
+            // 入力されたパスワード取得
+            $input_password = $request->input('memo_password');
+
+            dd($input_password);
         }
     }
 
