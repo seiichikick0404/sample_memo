@@ -112,8 +112,6 @@ class MemoController extends Controller
 
         if (Auth::user()){
 
-            
-
             // 認証ユーザーの取得
             $user = Auth::user();
 
