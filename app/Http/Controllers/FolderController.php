@@ -57,8 +57,6 @@ class FolderController extends Controller
             session()->remove('parent_folder');
         }
 
-
-
         return redirect()->route('memo.index');
     }
 
