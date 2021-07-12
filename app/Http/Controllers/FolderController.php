@@ -88,7 +88,7 @@ class FolderController extends Controller
             // フォルダ登録処理
             $folder->folder_name = $request->input('folder_name');
             $folder->user_id = $user_id;
-            
+
             $folder->save();
 
             // フォルダ セッション更新
@@ -123,7 +123,6 @@ class FolderController extends Controller
     // フォルダ編集処理
     public function edit(Request $request)
     {
-        
     }
 
     /**
