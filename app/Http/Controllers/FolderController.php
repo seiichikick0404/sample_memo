@@ -151,7 +151,6 @@ class FolderController extends Controller
             ->where('folder_id', $edit_id)
             ->update(['folder_name'=> $edit_name]);
 
-            
             return redirect('/memo');
 
         }else {
