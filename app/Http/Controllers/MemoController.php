@@ -18,7 +18,6 @@ class MemoController extends Controller
      */
     public function index(Request $request)
     {
-
         //フォルダ一覧表示
         if (auth::check()){
 
