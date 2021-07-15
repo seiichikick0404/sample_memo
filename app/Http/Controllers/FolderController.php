@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Folder;
+use App\UseCase\UseFolder\FolderSelectUseCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 
-class FolderController extends Controller
+final class FolderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,41 +22,13 @@ class FolderController extends Controller
         //
     }
 
-    // フォルダ選択
-    public function select(Request $request)
+    // フォルダ選択 
+    public function select(Request $request, FolderSelectUseCase $folder )
     {
-        // 全てのファイルフォルダが選択された場合
-        if ($request->key ){
-            $user = Auth::user();
-            $parent_folder = $request->key;
+        // $folder = new FolderSelectUseCase;
+        // フォルダー選択処理
+        $folder->FolderSelect($request);
 
-            session()->put('parent_folder', $parent_folder);
-
-            $memo = DB::table('memos')
-            ->where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->first();
-            session()->put('select_memo', $memo);
-
-        }
-        // 通常処理(フォルダ選択の場合)
-        else {
-            // フォルダ セッション更新
-            $id = $request->id;
-            $folder = DB::table('folders')
-            ->where('folder_id', $id)
-            ->first();
-            session()->put('select_folder', $folder);
-
-            // メモ セッション更新
-            $memo = DB::table('memos')
-            ->where('folder_id', $id)
-            ->orderBy('created_at', 'desc')
-            ->first();
-            session()->put('select_memo', $memo);
-
-            session()->remove('parent_folder');
-        }
 
         return redirect()->route('memo.index');
     }
