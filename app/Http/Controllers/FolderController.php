@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Folder;
 use App\UseCase\UseFolder\FolderSelectUseCase;
+use App\UseCase\UseFolder\FolderCreateUseCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -22,13 +23,12 @@ final class FolderController extends Controller
         //
     }
 
-    // フォルダ選択 
+    // フォルダ選択
     public function select(Request $request, FolderSelectUseCase $folder )
     {
         // $folder = new FolderSelectUseCase;
         // フォルダー選択処理
         $folder->FolderSelect($request);
-
 
         return redirect()->route('memo.index');
     }
@@ -49,26 +49,12 @@ final class FolderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, FolderCreateUseCase $folder)
     {
         // ログイン済み かつ POSTの場合
         if (auth::check() && $request){
-            $folder = new Folder;
 
-            // ログイン中のユーザーid取得
-            $user_id = Auth::id();
-
-            // フォルダ登録処理
-            $folder->folder_name = $request->input('folder_name');
-            $folder->user_id = $user_id;
-
-            $folder->save();
-
-            // フォルダ セッション更新
-            $folder = DB::table('folders')
-            ->where('folder_id', $folder->folder_id)
-            ->first();
-            session()->put('select_folder', $folder);
+            $folder->FolderCreate($request);
             return redirect('/memo');
 
         }else {
