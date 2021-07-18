@@ -7,6 +7,7 @@ use App\Models\Folder;
 use App\UseCase\UseFolder\FolderSelectUseCase;
 use App\UseCase\UseFolder\FolderCreateUseCase;
 use App\UseCase\UseFolder\FolderUpdateUseCase;
+use App\UseCase\UseFolder\FolderDestroyUseCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -117,11 +118,16 @@ final class FolderController extends Controller
 
     public function destroy(Request $request)
     {
-        $folder = new Folder;
-        $folder = DB::table('folders')
-        ->where('folder_id', $request->id)
-        ->delete();
 
-        return redirect()->route('memo.index');
+        // ログイン済み かつ POSTの場合
+        if (auth::check() && $request){
+
+            $folder = new FolderDestroyUseCase;
+            $folder->FolderDestroy($request);
+
+            return redirect()->route('memo.index');
+        }else {
+            return redirect()->route('memo.index');
+        }
     }
 }
