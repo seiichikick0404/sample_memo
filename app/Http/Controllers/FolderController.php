@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Folder;
 use App\UseCase\UseFolder\FolderSelectUseCase;
 use App\UseCase\UseFolder\FolderCreateUseCase;
+use App\UseCase\UseFolder\FolderUpdateUseCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -54,6 +55,7 @@ final class FolderController extends Controller
         // ログイン済み かつ POSTの場合
         if (auth::check() && $request){
 
+            //フォルダ作成処理
             $folder->FolderCreate($request);
             return redirect('/memo');
 
@@ -96,20 +98,9 @@ final class FolderController extends Controller
 
         // ログイン済み かつ POSTの場合
         if (auth::check() && $request){
-            $folder = new Folder;
 
-            $int_edit_id = $request->input('folder_id');
-            // 数値に変換
-            $edit_id = (int) $int_edit_id;
-            $edit_name = $request->input('folder_name');
-
-             //ログイン中のユーザーid取得
-            $user_id = Auth::id();
-
-            $folder = DB::table('folders')
-            ->where('folder_id', $edit_id)
-            ->update(['folder_name'=> $edit_name]);
-
+            $folder = new FolderUpdateUseCase;
+            $folder->FolderUpdate($request);
             return redirect('/memo');
 
         }else {
