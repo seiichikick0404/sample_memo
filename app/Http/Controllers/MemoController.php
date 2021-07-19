@@ -8,6 +8,8 @@ use App\Models\Memo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Services\GetNewMemo;
+use App\UseCase\UseFolder\FolderGetUseCase;
+use App\UseCase\UseMemo\MemoGetUseCase;
 
 class MemoController extends Controller
 {
@@ -18,59 +20,48 @@ class MemoController extends Controller
      */
     public function index(Request $request)
     {
-        //フォルダ一覧表示
-        if (auth::check()){
 
-            //認証ユーザー名取得
-            $user = Auth::user();
+        // 認証ユーザー名取得
+        $user = Auth::user();
 
-            // 選択中のフォルダ取得
-            $select_folder = session()->get('select_folder');
+        // 選択中のフォルダ取得
+        $select_folder = session()->get('select_folder');
 
-            // 親フォルダの取得
-            $parent_folder = session()->get('parent_folder');
+        // 親フォルダの取得
+        $parent_folder = session()->get('parent_folder');
 
-            // 選択中のメモ取得
-            $select_memo = session()->get('select_memo');
+        // 選択中のメモ取得
+        $select_memo = session()->get('select_memo');
 
-            // フォルダ一覧取得
-            $folders = DB::table('folders')
-            ->select('folder_name', 'folder_id')
-            ->where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        // フォルダ一覧取得
+        $folder = new FolderGetUseCase;
+        $folders = $folder->getFolder($user);
 
 
-            // メモ一覧取得(全てのメモ)
-            if ($parent_folder == 'all'){
-                $memos = DB::table('memos')
-                ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')
-                ->get();
+        // メモ一覧取得(全てのメモ)
+        if ($parent_folder == 'all'){
+            $memo = new MemoGetUseCase;
+            $memos = $memo->getAllMemo($user);
 
-            }
-            // メモ一覧取得(フォルダに属する)
-            elseif (isset($select_folder) && $parent_folder == ''){
-                $memos = DB::table('memos')
-                ->where('folder_id', $select_folder->folder_id)
-                ->orderBy('created_at', 'desc')
-                ->get();
-
-            }else {
-                $memos = 'no_object';
-            }
-
-            // dd($select_memo->key_flag);
-
-
-            return view('memo.index', ['folders'=> $folders,
-                                       'select_folder'=> $select_folder,
-                                       'user'=> $user,
-                                       'memos' => $memos,
-                                       'select_memo' => $select_memo,
-                                       'parent_folder' =>  $parent_folder,
-                                      ]);
         }
+        // メモ一覧取得(フォルダに属する)
+        elseif (isset($select_folder) && $parent_folder == ''){
+            $memo = new MemoGetUseCase;
+            $memos = $memo->parentFolder($select_folder);
+
+        }else {
+            $memos = 'no_object';
+        }
+
+
+        return view('memo.index', ['folders'=> $folders,
+                                    'select_folder'=> $select_folder,
+                                    'user'=> $user,
+                                    'memos' => $memos,
+                                    'select_memo' => $select_memo,
+                                    'parent_folder' =>  $parent_folder,
+                                    ]);
+
     }
 
     // メモ選択機能
