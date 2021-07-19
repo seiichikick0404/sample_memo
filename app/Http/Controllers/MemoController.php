@@ -12,6 +12,7 @@ use App\UseCase\UseFolder\FolderGetUseCase;
 use App\UseCase\UseMemo\MemoGetUseCase;
 use App\UseCase\UseMemo\MemoSelectUseCase;
 use App\UseCase\UseMemo\MemoCreateUseCase;
+use App\UseCase\UseMemo\MemoUpdateUseCase;
 
 class MemoController extends Controller
 {
@@ -162,16 +163,10 @@ class MemoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, MemoUpdateUseCase $memo_update)
     {
-
-        $id = $request->edit_id;
-        $title = $request->input('edit_title');
-        $content = $request->input('edit_content');
-
-        $memo = DB::table('memos')
-        ->where('memo_id', $id)
-        ->update(['title'=> $title, 'text'=> $content]);
+        // メモ更新処理
+        $memo_update->memoUpdate($request);
 
         // 新規メモ取得
         $session_memo = GetNewMemo::GetMemo();
