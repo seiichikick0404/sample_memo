@@ -13,6 +13,7 @@ use App\UseCase\UseMemo\MemoGetUseCase;
 use App\UseCase\UseMemo\MemoSelectUseCase;
 use App\UseCase\UseMemo\MemoCreateUseCase;
 use App\UseCase\UseMemo\MemoUpdateUseCase;
+use App\UseCase\UseMemo\MemoDestroyUseCase;
 
 class MemoController extends Controller
 {
@@ -183,13 +184,10 @@ class MemoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, MemoDestroyUseCase $memo)
     {
         // 削除
-        $id = $request->id;
-        DB::table('memos')
-        ->where('memo_id', $id)
-        ->delete();
+        $memo->MemoDestroy($request);
 
         // 新規メモ取得
         $session_memo = GetNewMemo::GetMemo();
