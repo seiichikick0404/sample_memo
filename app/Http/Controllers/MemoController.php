@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\GetNewMemo;
 use App\UseCase\UseFolder\FolderGetUseCase;
 use App\UseCase\UseMemo\MemoGetUseCase;
+use App\UseCase\UseMemo\MemoSelectUseCase;
+use App\UseCase\UseMemo\MemoCreateUseCase;
 
 class MemoController extends Controller
 {
@@ -18,7 +20,7 @@ class MemoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, FolderGetUseCase $folder)
     {
 
         // 認証ユーザー名取得
@@ -34,7 +36,6 @@ class MemoController extends Controller
         $select_memo = session()->get('select_memo');
 
         // フォルダ一覧取得
-        $folder = new FolderGetUseCase;
         $folders = $folder->getFolder($user);
 
 
@@ -65,15 +66,9 @@ class MemoController extends Controller
     }
 
     // メモ選択機能
-    public function select_memo(Request $request)
+    public function select_memo(Request $request, MemoSelectUseCase $memo)
     {
-        //メモid取得
-        $id = $request->id;
-        $memo = DB::table('memos')
-        ->where('memo_id', $id)
-        ->first();
-
-        session()->put('select_memo', $memo);
+        $memo->selectMemo($request);
 
         return redirect()->route('memo.index');
     }
@@ -131,28 +126,10 @@ class MemoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, MemoCreateUseCase $memo_create)
     {
-        $memo = new Memo;
+        $memo_create->memoCreate($request);
 
-        // ログイン中のユーザーid取得
-        $user_id = Auth::id();
-
-        // 選択中のフォルダidを取得
-        $folder_id = $request->id;
-
-        // 新規メモ作成
-        $memo->title = '新規メモ';
-        $memo->text = NUll;
-        $memo->user_id = $user_id;
-        $memo->folder_id = $folder_id;
-        $memo->save();
-
-        // 新規メモ取得
-        $session_memo = GetNewMemo::GetMemo();
-
-        // セッション更新
-        session()->put('select_memo', $session_memo);
         return redirect()->route('memo.index');
     }
 
