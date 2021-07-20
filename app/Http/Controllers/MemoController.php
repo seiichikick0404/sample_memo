@@ -114,17 +114,12 @@ class MemoController extends Controller
         // 入力されたパスワード取得
         $input_password = $request->input('memo_password');
 
-        $error = '';
         // パスワード認証チェック
         if (Hash::check($input_password, $user->password)){
             // 認証成功
             DB::table('memos')
             ->where('memo_id', $memo_id)
             ->update(['key_flag'=> NUll]);
-        }
-        else {
-            // 認証失敗
-            $error = 'パスワードが間違っています';
         }
 
         // 選択中メモ セッション更新
@@ -134,7 +129,7 @@ class MemoController extends Controller
 
         session()->put('select_memo', $memo);
 
-        return redirect()->route('memo.index', ['error_text'=> $error]);
+        return redirect()->route('memo.index');
 
     }
 
