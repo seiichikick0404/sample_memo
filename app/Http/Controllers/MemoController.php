@@ -85,9 +85,17 @@ class MemoController extends Controller
 
         // メモflag実行
         $id = $request->id;
-        $memo = DB::table('memos')
+        $memo_lock = DB::table('memos')
         ->where('memo_id', $id)
         ->update(['key_flag'=> 'true']);
+
+
+        // 選択中メモ セッション更新
+        $memo = DB::table('memos')
+        ->where('memo_id', $id)
+        ->first();
+
+        session()->put('select_memo', $memo);
 
         return redirect()->route('memo.index');
 
@@ -106,11 +114,27 @@ class MemoController extends Controller
         // 入力されたパスワード取得
         $input_password = $request->input('memo_password');
 
-        if ($user->id === $input_password){
-
+        $error = '';
+        // パスワード認証チェック
+        if (Hash::check($input_password, $user->password)){
+            // 認証成功
+            DB::table('memos')
+            ->where('memo_id', $memo_id)
+            ->update(['key_flag'=> NUll]);
+        }
+        else {
+            // 認証失敗
+            $error = 'パスワードが間違っています';
         }
 
-        dd($input_password);
+        // 選択中メモ セッション更新
+        $memo = DB::table('memos')
+        ->where('memo_id', $memo_id)
+        ->first();
+
+        session()->put('select_memo', $memo);
+
+        return redirect()->route('memo.index', ['error_text'=> $error]);
 
     }
 
