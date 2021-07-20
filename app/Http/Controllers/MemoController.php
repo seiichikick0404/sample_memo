@@ -7,6 +7,7 @@ use App\Models\Folder;
 use App\Models\Memo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Services\GetNewMemo;
 use App\UseCase\UseFolder\FolderGetUseCase;
 use App\UseCase\UseMemo\MemoGetUseCase;
@@ -78,38 +79,39 @@ class MemoController extends Controller
     // メモロック機能
     public function memo_lock(Request $request){
 
-        if (Auth::user()){
 
-            //認証ユーザ取得
-            $user = Auth::user();
+        //認証ユーザ取得
+        $user = Auth::user();
 
-            // メモflag実行
-            $id = $request->id;
-            $memo = DB::table('memos')
-            ->where('memo_id', $id)
-            ->update(['key_flag'=> 'true']);
+        // メモflag実行
+        $id = $request->id;
+        $memo = DB::table('memos')
+        ->where('memo_id', $id)
+        ->update(['key_flag'=> 'true']);
 
-            return redirect()->route('memo.index');
+        return redirect()->route('memo.index');
 
-        }
     }
 
     // メモロック  解除
     public function memo_lock_release(Request $request){
 
-        if (Auth::user()){
 
-            // 認証ユーザーの取得
-            $user = Auth::user();
+        // 認証ユーザーの取得
+        $user = Auth::user();
 
-            // 選択されたメモid取得
-            $memo_id = $request->input('memo_id');
+        // 選択されたメモid取得
+        $memo_id = $request->input('memo_id');
 
-            // 入力されたパスワード取得
-            $input_password = $request->input('memo_password');
+        // 入力されたパスワード取得
+        $input_password = $request->input('memo_password');
 
-            dd($input_password);
+        if ($user->id === $input_password){
+
         }
+
+        dd($input_password);
+
     }
 
     /**
