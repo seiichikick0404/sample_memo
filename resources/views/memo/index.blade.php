@@ -169,7 +169,7 @@
                         <textarea id="memo-content" name="edit_content" placeholder="内容を入力する...">{{ $select_memo->text }}</textarea>
                     </form>
 
-                    @elseif ($select_memo AND $select_memo->key_flag == 'true')
+                    @elseif ($select_memo AND $select_memo->key_flag == 'true' AND $select_memo->key_lock_status == 'false')
                     <form class="w-100 h-100" action="{{ route('memo.lock_release') }}" method="post">
                         @csrf
                         <input type="hidden" name="memo_id" value="{{ $select_memo->memo_id }}" />
@@ -183,6 +183,20 @@
                         <h2>このメモはロックがかけられています</h2>
                         <input type="password" id="memo-title" name="memo_password" value='' placeholder="パスワードを入力" />
                         <button type="submit" class="btn btn-secondary">ロック解除</button>
+                    </form>
+
+                    @elseif ($select_memo AND $select_memo->key_flag == 'true' AND $select_memo->key_lock_status == 'true')
+                    <form class="w-100 h-100" action="" method="post">
+                        @csrf
+                        <input type="hidden" name="edit_id" value="{{ $select_memo->memo_id }}" />
+                        <div id="memo-menu" class="memo-wrap">
+                            <button type="submit" class="btn btn-success save-btn" formaction="{{ route('memo.update_memo') }}"><i class="fas fa-save"></i></button>
+                            <button type="button" class="btn btn-primary lock-btn" onclick="location.href='{{ route('memo.lock_close', ['id'=> $select_memo->memo_id ]) }}'"><i class="fas fa-lock-open"></i></button>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary search" data-toggle="modal" data-target="#modal_search"><i class="fas fa-search"></i></button>
+                        </div>
+                        <input type="text" id="memo-title" name="edit_title" value={{ $select_memo->title }} placeholder="タイトルを入力する..." />
+                        <textarea id="memo-content" name="edit_content" placeholder="内容を入力する...">{{ $select_memo->text }}</textarea>
                     </form>
 
                     @else
