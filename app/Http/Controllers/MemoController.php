@@ -16,6 +16,7 @@ use App\UseCase\UseMemo\MemoCreateUseCase;
 use App\UseCase\UseMemo\MemoUpdateUseCase;
 use App\UseCase\UseMemo\MemoDestroyUseCase;
 use App\UseCase\UseMemo\MemoLockUseCase;
+use App\UseCase\UseMemo\MemoLockCloseUseCase;
 
 class MemoController extends Controller
 {
@@ -87,23 +88,9 @@ class MemoController extends Controller
     }
 
     // メモロック 閉じる(再び施錠)
-    public function memo_lock_close(Request $request){
-        //認証ユーザ取得
-        $user = Auth::user();
+    public function memo_lock_close(Request $request, MemoLockCloseUseCase $memo){
 
-        // メモflag実行
-        $id = $request->id;
-        $memo_lock = DB::table('memos')
-        ->where('memo_id', $id)
-        ->update(['key_lock_status'=> 'false']);
-
-
-        // 選択中メモ セッション更新
-        $memo = DB::table('memos')
-        ->where('memo_id', $id)
-        ->first();
-
-        session()->put('select_memo', $memo);
+        $memo->memoClose($request);
 
         return redirect()->route('memo.index');
     }
