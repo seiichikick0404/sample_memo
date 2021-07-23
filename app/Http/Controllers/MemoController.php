@@ -18,6 +18,7 @@ use App\UseCase\UseMemo\MemoDestroyUseCase;
 use App\UseCase\UseMemo\MemoLockUseCase;
 use App\UseCase\UseMemo\MemoLockCloseUseCase;
 use App\UseCase\UseMemo\MemoLockReleaseUseCase;
+use App\UseCase\UseMemo\MemoLockDestroyUseCase;
 
 class MemoController extends Controller
 {
@@ -107,21 +108,9 @@ class MemoController extends Controller
     }
 
     // メモロック 解除(ロックそのものを解除)
-    public function memo_lock_destroy(Request $request){
+    public function memo_lock_destroy(Request $request, MemoLockDestroyUseCase $memo){
 
-        // メモflag実行
-        $id = $request->id;
-        $memo_lock_destroy = DB::table('memos')
-        ->where('memo_id', $id)
-        ->update(['key_flag'=> NUll, 'key_lock_status'=> NUll]);
-
-
-        // 選択中メモ セッション更新
-        $memo = DB::table('memos')
-        ->where('memo_id', $id)
-        ->first();
-
-        session()->put('select_memo', $memo);
+        $memo->lockDestroy($request);
 
         return redirect()->route('memo.index');
     }
@@ -223,7 +212,6 @@ class MemoController extends Controller
 
         // 検索された場合
         if ($request->input('search')){
-
 
             // フォルダ一覧取得
             $folders = DB::table('folders')
