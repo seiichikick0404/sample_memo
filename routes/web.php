@@ -34,7 +34,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/memo_search_memo', [MemoController::class, 'search'])->name('memo.search_memo');
     Route::get('/memo/memo_lock', [MemoController::class , 'memo_lock'])->name('memo.lock');
     Route::get('/memo/memo_lock_close', [MemoController::class , 'memo_lock_close'])->name('memo.lock_close');
+    Route::get('/memo/memo_lock_destroy', [MemoController::class, 'memo_lock_destroy'])->name('memo.lock_destroy');
     Route::post('/memo/lock_release', [MemoController::class, 'memo_lock_release'])->name('memo.lock_release');
+
 });
 
 Auth::routes();

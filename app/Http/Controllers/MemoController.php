@@ -106,6 +106,26 @@ class MemoController extends Controller
 
     }
 
+    // メモロック 解除(ロックそのものを解除)
+    public function memo_lock_destroy(Request $request){
+
+        // メモflag実行
+        $id = $request->id;
+        $memo_lock_destroy = DB::table('memos')
+        ->where('memo_id', $id)
+        ->update(['key_flag'=> NUll, 'key_lock_status'=> NUll]);
+
+
+        // 選択中メモ セッション更新
+        $memo = DB::table('memos')
+        ->where('memo_id', $id)
+        ->first();
+
+        session()->put('select_memo', $memo);
+
+        return redirect()->route('memo.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -191,6 +211,8 @@ class MemoController extends Controller
 
         return redirect()->route('memo.index');
     }
+
+    // メモロック
 
     // メモ検索
     public function search(Request $request){
