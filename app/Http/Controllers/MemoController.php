@@ -204,42 +204,42 @@ class MemoController extends Controller
     // メモロック
 
     // メモ検索
-    public function search(Request $request){
+    // public function search(Request $request){
 
-        // //認証ユーザー名取得
-        // $user = Auth::user();
-        // $user_name = $user->name;
+    //     //認証ユーザー名取得
+    //     $user = Auth::user();
+    //     $user_name = $user->name;
 
-        // // 検索された場合
-        // if ($request->input('search')){
+    //     // 検索された場合
+    //     if ($request->input('search')){
 
-        //     // フォルダ一覧取得
-        //     $folders = DB::table('folders')
-        //     ->select('folder_name', 'folder_id')
-        //     ->where('user_id', $user->id)
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
+    //         // フォルダ一覧取得
+    //         $folders = DB::table('folders')
+    //         ->select('folder_name', 'folder_id')
+    //         ->where('user_id', $user->id)
+    //         ->orderBy('created_at', 'desc')
+    //         ->get();
 
-        //     // 検索
-        //     $query = $request->input('search');
-        //     $memos = DB::table('memos')
-        //     ->where('title', 'like', '%'.$query.'%')
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
+    //         // 検索
+    //         $query = $request->input('search');
+    //         $memos = DB::table('memos')
+    //         ->where('title', 'like', '%'.$query.'%')
+    //         ->orderBy('created_at', 'desc')
+    //         ->get();
 
-        //     $select_folder = session()->remove('select_folder');
-        //     $select_memo = session()->remove('select_memo');
+    //         $select_folder = session()->remove('select_folder');
+    //         $select_memo = session()->remove('select_memo');
 
-        //     dd($memos);
+    //         dd($memos);
 
-        //     return view('memo.index', [
+    //         return view('memo.index', [
 
-        //                                'user_name'=> $user_name,
-        //                                'memos' => $memos,
-        //                                'folders' => $folders,
-        //                                'select_folder'=> $select_folder,
-        //                                'select_memo'=> $select_memo,
-        //                               ]);
-        // }
-    }
+    //                                    'user_name'=> $user_name,
+    //                                    'memos' => $memos,
+    //                                    'folders' => $folders,
+    //                                    'select_folder'=> $select_folder,
+    //                                    'select_memo'=> $select_memo,
+    //                                   ]);
+    //     }
+    //}
 }
