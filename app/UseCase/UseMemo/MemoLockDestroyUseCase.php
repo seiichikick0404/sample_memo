@@ -3,12 +3,8 @@
 namespace App\UseCase\UseMemo;
 
 use Illuminate\Http\Request;
-use App\Models\Folder;
-use App\Models\Memo;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
-use App\Services\GetNewMemo;
+
 
 Class MemoLockDestroyUseCase {
 

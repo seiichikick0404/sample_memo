@@ -7,7 +7,6 @@ use App\Models\Folder;
 use App\Models\Memo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Services\GetNewMemo;
 use App\UseCase\UseFolder\FolderGetUseCase;
 use App\UseCase\UseMemo\MemoGetUseCase;
@@ -172,12 +171,6 @@ class MemoController extends Controller
         // メモ更新処理
         $memo_update->memoUpdate($request);
 
-        // 新規メモ取得
-        $session_memo = GetNewMemo::GetMemo();
-
-        // セッション更新
-        session()->put('select_memo', $session_memo);
-
         return redirect()->route('memo.index');
     }
 
@@ -191,12 +184,6 @@ class MemoController extends Controller
     {
         // 削除
         $memo->MemoDestroy($request);
-
-        // 新規メモ取得
-        $session_memo = GetNewMemo::GetMemo();
-
-        // メモ セッション更新
-        session()->put('select_memo', $session_memo);
 
         return redirect()->route('memo.index');
     }

@@ -3,12 +3,9 @@
 namespace App\UseCase\UseMemo;
 
 use Illuminate\Http\Request;
-use App\Models\Folder;
-use App\Models\Memo;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
 use App\Services\GetNewMemo;
+
 
 Class MemoDestroyUseCase {
 
@@ -17,5 +14,11 @@ Class MemoDestroyUseCase {
         DB::table('memos')
         ->where('memo_id', $id)
         ->delete();
+
+        // 新規メモ取得
+        $session_memo = GetNewMemo::GetMemo();
+
+        // セッション更新
+        session()->put('select_memo', $session_memo);
     }
 }

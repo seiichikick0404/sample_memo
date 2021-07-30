@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Folder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
+
 
 
 Class FolderCreateUseCase {
@@ -29,6 +29,5 @@ Class FolderCreateUseCase {
             ->where('folder_id', $folder->folder_id)
             ->first();
             session()->put('select_folder', $folder);
-            
     }
 }
