@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\Auth;
 Class MemoLockCloseUseCase {
     public function memoClose($request){
 
-
-        //認証ユーザ取得
-        $user = Auth::user();
-
         // メモflag実行
         $id = $request->id;
         $memo_lock = DB::table('memos')

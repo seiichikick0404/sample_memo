@@ -15,35 +15,16 @@ use Illuminate\Database\Eloquent\Model;
 
 final class FolderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     // フォルダ選択
     public function select(Request $request, FolderSelectUseCase $folder )
     {
-        // $folder = new FolderSelectUseCase;
         // フォルダー選択処理
         $folder->FolderSelect($request);
 
         return redirect()->route('memo.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -65,27 +46,6 @@ final class FolderController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // フォルダ編集処理
-    public function edit(Request $request)
-    {
-    }
 
     /**
      * Update the specified resource in storage.

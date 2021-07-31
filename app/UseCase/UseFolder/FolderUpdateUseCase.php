@@ -18,8 +18,6 @@ Class FolderUpdateUseCase {
         $edit_id = (int) $int_edit_id;
         $edit_name = $request->input('folder_name');
 
-        //ログイン中のユーザーid取得
-        $user_id = Auth::id();
 
         $folder = DB::table('folders')
         ->where('folder_id', $edit_id)

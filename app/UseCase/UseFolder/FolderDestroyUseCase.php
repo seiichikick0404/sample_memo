@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 Class FolderDestroyUseCase {
 
-    public function folderDestroy ($request){
-        $folder = new Folder;
+    public function folderDestroy (Request $request){
         $folder = DB::table('folders')
         ->where('folder_id', $request->id)
         ->delete();
