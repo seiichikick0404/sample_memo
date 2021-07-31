@@ -9,7 +9,7 @@ use App\Services\GetNewMemo;
 
 Class MemoDestroyUseCase {
 
-    public function MemoDestroy($request){
+    public function memoDestroy($request){
         $id = $request->id;
         DB::table('memos')
         ->where('memo_id', $id)

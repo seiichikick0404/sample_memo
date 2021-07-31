@@ -152,7 +152,7 @@ class MemoController extends Controller
     public function destroy(Request $request, MemoDestroyUseCase $memo)
     {
         // 削除
-        $memo->MemoDestroy($request);
+        $memo->memoDestroy($request);
 
         return redirect()->route('memo.index');
     }

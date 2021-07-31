@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class FolderSelectUseCase
 {
-    public function FolderSelect($request){
+    public function folderSelect($request){
 
         // 全てのファイルフォルダが選択された場合
         if ($request->key ){

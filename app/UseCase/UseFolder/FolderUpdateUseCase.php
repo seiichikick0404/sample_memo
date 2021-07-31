@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 Class FolderUpdateUseCase {
 
-    public function FolderUpdate($request){
+    public function folderUpdate($request){
         $folder = new Folder;
 
         $int_edit_id = $request->input('folder_id');

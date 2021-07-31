@@ -20,7 +20,7 @@ final class FolderController extends Controller
     public function select(Request $request, FolderSelectUseCase $folder )
     {
         // フォルダー選択処理
-        $folder->FolderSelect($request);
+        $folder->folderSelect($request);
 
         return redirect()->route('memo.index');
     }
@@ -38,7 +38,7 @@ final class FolderController extends Controller
         if (auth::check() && $request){
 
             //フォルダ作成処理
-            $folder->FolderCreate($request);
+            $folder->folderCreate($request);
             return redirect('/memo');
 
         }else {
@@ -61,7 +61,7 @@ final class FolderController extends Controller
         if (auth::check() && $request){
 
             $folder = new FolderUpdateUseCase;
-            $folder->FolderUpdate($request);
+            $folder->folderUpdate($request);
             return redirect('/memo');
 
         }else {
@@ -83,7 +83,7 @@ final class FolderController extends Controller
         if (auth::check() && $request){
 
             $folder = new FolderDestroyUseCase;
-            $folder->FolderDestroy($request);
+            $folder->folderDestroy($request);
 
             return redirect()->route('memo.index');
         }else {

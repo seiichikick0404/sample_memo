@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 Class FolderCreateUseCase {
 
-    public function FolderCreate($request){
+    public function folderCreate($request){
 
             $folder = new Folder;
 
