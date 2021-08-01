@@ -18,24 +18,26 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
+
+
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login.index');
 Route::get('/user', [RegisterController::class, 'showRegistrationForm'])->name('register.index');
-Route::group(['middleware' => ['auth']], function() {
-    Route::get('/memo', [MemoController::class, 'index'])->name('memo.index');
-    Route::post('/memo/create_folder', [FolderController::class, 'store'])->name('memo.create_folder');
-    Route::get('/memo/select_folder', [FolderController::class, 'select'])->name('memo.select_folder');
-    Route::post('/memo/update_folder', [FolderController::class, 'update'])->name('memo.update_folder');
-    Route::get('/memo/destroy_folder', [FolderController::class, 'destroy'])->name('memo.destroy_folder');
-    Route::get('/memo/select_memo', [MemoController::class, 'select_memo'])->name('memo.select_memo');
-    Route::get('/memo/create_memo', [MemoController::class, 'store'])->name('memo.create_memo');
-    Route::get('logout', [LoginController::class, 'logout'])->name('memo.logout');
-    Route::get('/memo/destroy_memo', [MemoController::class, 'destroy'])->name('memo.destroy_memo');
-    Route::post('/memo/update_memo', [MemoController::class, 'update'])->name('memo.update_memo');
-    Route::get('/memo_search_memo', [MemoController::class, 'search'])->name('memo.search_memo');
-    Route::get('/memo/memo_lock', [MemoController::class , 'memo_lock'])->name('memo.lock');
-    Route::get('/memo/memo_lock_close', [MemoController::class , 'memo_lock_close'])->name('memo.lock_close');
-    Route::get('/memo/memo_lock_destroy', [MemoController::class, 'memo_lock_destroy'])->name('memo.lock_destroy');
-    Route::post('/memo/lock_release', [MemoController::class, 'memo_lock_release'])->name('memo.lock_release');
+Route::group(['middleware' => ['auth'], 'prefix' => 'memo', 'as' => 'memo.'], function() {
+    Route::get('', [MemoController::class, 'index'])->name('index');
+    Route::post('/create_folder', [FolderController::class, 'store'])->name('create_folder');
+    Route::get('/select_folder', [FolderController::class, 'select'])->name('select_folder');
+    Route::post('/update_folder', [FolderController::class, 'update'])->name('update_folder');
+    Route::get('/destroy_folder', [FolderController::class, 'destroy'])->name('destroy_folder');
+    Route::get('/select_memo', [MemoController::class, 'select_memo'])->name('select_memo');
+    Route::get('/create_memo', [MemoController::class, 'store'])->name('create_memo');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/destroy_memo', [MemoController::class, 'destroy'])->name('destroy_memo');
+    Route::post('/update_memo', [MemoController::class, 'update'])->name('update_memo');
+    Route::get('/memo_search_memo', [MemoController::class, 'search'])->name('search_memo');
+    Route::get('/memo_lock', [MemoController::class , 'memo_lock'])->name('lock');
+    Route::get('/memo_lock_close', [MemoController::class , 'memo_lock_close'])->name('lock_close');
+    Route::get('/memo_lock_destroy', [MemoController::class, 'memo_lock_destroy'])->name('lock_destroy');
+    Route::post('/lock_release', [MemoController::class, 'memo_lock_release'])->name('lock_release');
 
 });
 
