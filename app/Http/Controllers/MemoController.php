@@ -140,8 +140,6 @@ class MemoController extends Controller
         // メモ更新処理
         $memo_update->memoUpdate($request);
 
-      
-
         return redirect()->route('memo.index');
     }
 

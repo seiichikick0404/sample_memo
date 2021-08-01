@@ -54,13 +54,12 @@ final class FolderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, FolderUpdateUseCase $folder)
     {
 
         // ログイン済み かつ POSTの場合
         if (auth::check() && $request){
 
-            $folder = new FolderUpdateUseCase;
             $folder->folderUpdate($request);
             return redirect('/memo');
 
@@ -76,13 +75,12 @@ final class FolderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, FolderDestroyUseCase $folder)
     {
 
         // ログイン済み かつ POSTの場合
         if (auth::check() && $request){
 
-            $folder = new FolderDestroyUseCase;
             $folder->folderDestroy($request);
 
             return redirect()->route('memo.index');
