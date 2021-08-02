@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Folder;
 use App\UseCase\UseFolder\FolderSelectUseCase;
+use App\UseCase\UseFolder\FolderSelectAllUseCase;
 use App\UseCase\UseFolder\FolderCreateUseCase;
 use App\UseCase\UseFolder\FolderUpdateUseCase;
 use App\UseCase\UseFolder\FolderDestroyUseCase;
@@ -23,6 +24,15 @@ final class FolderController extends Controller
     {
         // フォルダー選択処理
         $folder->folderSelect($request);
+
+        return redirect()->route('memo.index');
+    }
+
+
+    // フォルダ選択 (全ファイルフォルダ選択の場合)
+    public function select_all_folder (Request $request, FolderSelectAllUseCase $folder){
+
+        $folder->folderSelectAll($request);
 
         return redirect()->route('memo.index');
     }

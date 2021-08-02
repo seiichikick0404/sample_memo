@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'memo', 'as' => 'memo.'], fu
     Route::get('', [MemoController::class, 'index'])->name('index');
     Route::post('/create_folder', [FolderController::class, 'store'])->name('create_folder');
     Route::get('/select_folder', [FolderController::class, 'select'])->name('select_folder');
+    Route::get('/select_all_folder', [FolderController::class, 'select_all_folder'])->name('select_all_folder');
     Route::post('/update_folder', [FolderController::class, 'update'])->name('update_folder');
     Route::get('/destroy_folder', [FolderController::class, 'destroy'])->name('destroy_folder');
     Route::get('/select_memo', [MemoController::class, 'select_memo'])->name('select_memo');

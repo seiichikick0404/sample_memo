@@ -51,7 +51,7 @@
             <div class="list-group">
 
             <li class="list-group-item list-group-item-action @if ($parent_folder) active  @endif " >
-                <a href="{{ route('memo.select_folder') }}?key=all" class="@if ($parent_folder) active  @endif " >
+                <a href="{{ route('memo.select_all_folder') }}?key=all" class="@if ($parent_folder) active  @endif " >
                     <i class="far fa-folder"></i>
                     全てのファイル
                 </a>
