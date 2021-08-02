@@ -18,6 +18,8 @@ use App\UseCase\UseMemo\MemoLockUseCase;
 use App\UseCase\UseMemo\MemoLockCloseUseCase;
 use App\UseCase\UseMemo\MemoLockReleaseUseCase;
 use App\UseCase\UseMemo\MemoLockDestroyUseCase;
+use App\UseCase\UseFolder\FolderSelectFirstUseCase;
+
 
 class MemoController extends Controller
 {
@@ -29,7 +31,7 @@ class MemoController extends Controller
     public function index(Request $request, FolderGetUseCase $folder)
     {
 
-        // 認証ユーザー名取得
+        // 認証ユーザー取得
         $user = Auth::user();
 
         // 選択中のフォルダ取得
@@ -45,11 +47,22 @@ class MemoController extends Controller
         $folders = $folder->getFolder($user);
 
 
+        // ログイン時 （初回全ファイルフォルダの選択）
+        if ($select_folder === NULL && $parent_folder === NULL){
+
+            $parent_folder = 'all';
+            $select_first_folder = new FolderSelectFirstUseCase;
+            $select_first_folder->folderSelectFirst($parent_folder);
+        }
+
+
         // メモ一覧取得(全てのメモ)
         if ($parent_folder == 'all'){
             $memo = new MemoGetUseCase;
             $memos = $memo->getAllMemo($user);
 
+            // 選択中のメモ取得
+            $select_memo = session()->get('select_memo');
         }
         // メモ一覧取得(フォルダに属する)
         elseif (isset($select_folder) && $parent_folder == ''){
