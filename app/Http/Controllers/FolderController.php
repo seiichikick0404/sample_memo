@@ -32,7 +32,9 @@ final class FolderController extends Controller
     // フォルダ選択 (全ファイルフォルダ選択の場合)
     public function select_all_folder (Request $request, FolderSelectAllUseCase $folder){
 
-        $folder->folderSelectAll($request);
+        if ($request->key === 'all'){
+            $folder->folderSelectAll($request);
+        }
 
         return redirect()->route('memo.index');
     }

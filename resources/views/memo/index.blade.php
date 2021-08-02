@@ -62,7 +62,6 @@
                     <a href="{{ route('memo.select_folder') }}?id={{ $folder->folder_id }}" class="@if ($select_folder AND $select_folder->folder_id == $folder->folder_id AND $parent_folder == NULL) active @endif " >
                         <i class="far fa-folder"></i>
                         {{ $folder->folder_name }}
-
                     </a>
                     <!-- モダール用ボタン -->
                     <button type="button" class="btn btn-primary edit-position" data-toggle="modal" data-target="#exampleModal" data-id="{{ $folder->folder_id  }}" data-name="{{ $folder->folder_name }}"><i class="fas fa-save"></i></button>
