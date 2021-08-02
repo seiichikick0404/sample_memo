@@ -208,17 +208,8 @@
                     </form>
 
                     @else
-                    <form class="w-100 h-100" action="" method="post">
-                        @csrf
-                        <input type="hidden" name="edit_id" value="" />
-                        <div id="memo-menu justfy-content">
-                            <button type="button" class="btn btn-success save-btn" formaction=""><i class="fas fa-save"></i></button>
-                            <button type="button" class="btn btn-primary lock-btn" formaction=""><i class="fas fa-lock"></i></button>
-                            <button type="button" class="btn btn-primary search" data-toggle="modal" data-target="#modal_search"><i class="fas fa-search"></i></button>
-                        </div>
-                        <input type="text" id="memo-title" name="edit_title"  placeholder="タイトルを入力する..." />
-                        <textarea id="memo-content" name="edit_content" placeholder="内容を入力する..."></textarea>
-                    </form>
+                    <div id="memo-menu" class="memo-wrap">
+                    </div>
                     @endif
 
                     <!-- Modal -->
