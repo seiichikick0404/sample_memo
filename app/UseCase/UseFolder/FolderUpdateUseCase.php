@@ -13,10 +13,12 @@ Class FolderUpdateUseCase {
     public function folderUpdate($request){
         $folder = new Folder;
 
-        $int_edit_id = $request->input('folder_id');
+        // dd($request);
+
+        $int_edit_id = $request['folder_id'];
         // 数値に変換
         $edit_id = (int) $int_edit_id;
-        $edit_name = $request->input('folder_name');
+        $edit_name = $request['folder_name'];
 
 
         $folder = DB::table('folders')

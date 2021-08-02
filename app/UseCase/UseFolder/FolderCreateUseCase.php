@@ -19,7 +19,7 @@ Class FolderCreateUseCase {
             $user_id = Auth::id();
 
             // フォルダ登録処理
-            $folder->folder_name = $request->input('folder_name');
+            $folder->folder_name = $request['folder_name'];
             $folder->user_id = $user_id;
 
             $folder->save();

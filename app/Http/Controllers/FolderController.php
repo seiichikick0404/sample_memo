@@ -11,13 +11,15 @@ use App\UseCase\UseFolder\FolderDestroyUseCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\FolderRequest\FolderCreateRequest;
+use App\Http\Requests\FolderRequest\FolderUpdateRequest;
 
 
 final class FolderController extends Controller
 {
 
     // フォルダ選択
-    public function select(Request $request, FolderSelectUseCase $folder )
+    public function select(Request $request, FolderSelectUseCase $folder)
     {
         // フォルダー選択処理
         $folder->folderSelect($request);
@@ -32,18 +34,15 @@ final class FolderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, FolderCreateUseCase $folder)
+    public function store(FolderCreateUseCase $folder, FolderCreateRequest $request)
     {
-        // ログイン済み かつ POSTの場合
-        if (auth::check() && $request){
+        // バリデーション済みリクエスト取得
+        $validated_request = $request->validated();
 
-            //フォルダ作成処理
-            $folder->folderCreate($request);
-            return redirect('/memo');
+        //フォルダ作成処理
+        $folder->folderCreate($validated_request);
 
-        }else {
-            return redirect('/memo');
-        }
+        return redirect('/memo');
     }
 
 
@@ -54,18 +53,15 @@ final class FolderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FolderUpdateUseCase $folder)
+    public function update(FolderUpdateRequest $request , FolderUpdateUseCase $folder)
     {
 
-        // ログイン済み かつ POSTの場合
-        if (auth::check() && $request){
+        // バリデーション済みリクエスト取得
+        $validated_request = $request->validated();
 
-            $folder->folderUpdate($request);
-            return redirect('/memo');
+        $folder->folderUpdate($validated_request);
 
-        }else {
-            return redirect('/memo');
-        }
+        return redirect('/memo');
     }
 
     /**
@@ -77,15 +73,11 @@ final class FolderController extends Controller
 
     public function destroy(Request $request, FolderDestroyUseCase $folder)
     {
-
-        // ログイン済み かつ POSTの場合
-        if (auth::check() && $request){
-
+        // $requestがあった場合
+        if ($request){
             $folder->folderDestroy($request);
-
-            return redirect()->route('memo.index');
-        }else {
-            return redirect()->route('memo.index');
         }
+
+        return redirect()->route('memo.index');
     }
 }
