@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\FolderRequest;
+namespace App\Http\Requests\MemoRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class FolderUpdateRequest extends FormRequest
+class MemoUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,9 @@ class FolderUpdateRequest extends FormRequest
     {
 
         return [
-            'folder_id' => 'required',
-            'folder_name' => 'required|max:30',
+            'edit_id' => 'required',
+            'edit_title' => 'required|max:35',
+            'edit_content' => 'max:500',
         ];
 
     }

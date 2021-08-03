@@ -19,6 +19,8 @@ use App\UseCase\UseMemo\MemoLockCloseUseCase;
 use App\UseCase\UseMemo\MemoLockReleaseUseCase;
 use App\UseCase\UseMemo\MemoLockDestroyUseCase;
 use App\UseCase\UseFolder\FolderSelectFirstUseCase;
+use App\Http\Requests\MemoRequest\MemoUpdateRequest;
+
 
 
 class MemoController extends Controller
@@ -148,10 +150,14 @@ class MemoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MemoUpdateUseCase $memo_update)
+    public function update(MemoUpdateRequest $request, MemoUpdateUseCase $memo_update)
     {
+
+        // バリデーション済みリクエスト取得
+        $validated_request = $request->validated();
+
         // メモ更新処理
-        $memo_update->memoUpdate($request);
+        $memo_update->memoUpdate($validated_request);
 
         return redirect()->route('memo.index');
     }

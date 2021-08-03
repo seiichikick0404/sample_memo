@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
+
 Class MemoUpdateUseCase {
 
     public function memoUpdate($request){
 
+        // dd($request);
 
-        $id = $request->edit_id;
-        $title = $request->input('edit_title');
-        $content = $request->input('edit_content');
+
+        $id = $request['edit_id'];
+        $title = $request['edit_title'];
+        $content = $request['edit_content'];
 
 
         DB::table('memos')

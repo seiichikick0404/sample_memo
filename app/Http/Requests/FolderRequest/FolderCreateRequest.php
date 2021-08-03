@@ -26,8 +26,7 @@ class FolderCreateRequest extends FormRequest
     {
 
         return [
-            'folder_name' => 'required',
+            'folder_name' => 'required|max:30',
         ];
-
     }
 }
