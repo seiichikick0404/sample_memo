@@ -2,7 +2,6 @@
 
 namespace App\UseCase\UseMemo;
 
-use Illuminate\Http\Request;
 use App\Models\Memo;
 use Illuminate\Support\Facades\Auth;
 use App\Services\GetNewMemo;
