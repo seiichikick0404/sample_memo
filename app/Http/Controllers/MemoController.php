@@ -75,6 +75,8 @@ class MemoController extends Controller
             $memos = 'no_object';
         }
 
+        // dd($select_folder);
+
 
         return view('memo.index', ['folders'=> $folders,
                                     'select_folder'=> $select_folder,
@@ -100,7 +102,6 @@ class MemoController extends Controller
         $memo->memoLock($request);
 
         return redirect()->route('memo.index');
-
     }
 
     // メモロック 閉じる(再び施錠)
