@@ -23,9 +23,9 @@ final class FolderController extends Controller
     public function select(Request $request, FolderSelectUseCase $folder)
     {
         // フォルダー選択処理
-        $select_folder = $folder->folderSelect($request);
+        $folder->folderSelect($request);
 
-        return redirect()->route('memo.index')->with(compact('select_folder'));
+        return redirect()->route('memo.index');
     }
 
 
