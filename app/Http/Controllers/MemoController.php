@@ -75,8 +75,6 @@ class MemoController extends Controller
             $memos = 'no_object';
         }
 
-        // dd($select_folder);
-
 
         return view('memo.index', ['folders'=> $folders,
                                     'select_folder'=> $select_folder,
