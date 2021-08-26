@@ -19,6 +19,7 @@ use App\UseCase\UseMemo\MemoLockCloseUseCase;
 use App\UseCase\UseMemo\MemoLockReleaseUseCase;
 use App\UseCase\UseMemo\MemoLockDestroyUseCase;
 use App\UseCase\UseFolder\FolderSelectFirstUseCase;
+use App\UseCase\UseFolder\FolderSelectUseCase;
 use App\Http\Requests\MemoRequest\MemoUpdateRequest;
 
 
@@ -30,7 +31,7 @@ class MemoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, FolderGetUseCase $folder)
+    public function index(Request $request, FolderGetUseCase $folder, FolderSelectUseCase $select_folder_exe)
     {
 
         // 認証ユーザー取得

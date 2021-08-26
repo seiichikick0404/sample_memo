@@ -39,7 +39,6 @@ final class FolderController extends Controller
         return redirect()->route('memo.index');
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
