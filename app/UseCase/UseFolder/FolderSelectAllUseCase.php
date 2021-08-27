@@ -11,7 +11,6 @@ class FolderSelectAllUseCase
 {
     public function folderSelectAll($request){
 
-
         $user = Auth::user();
         $parent_folder = $request->key;
 

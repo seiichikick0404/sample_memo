@@ -23,6 +23,5 @@ class FolderSelectFirstUseCase
 
         session()->put('select_memo', $memo);
 
-
     }
 }
