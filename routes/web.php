@@ -19,7 +19,6 @@ use App\Http\Controllers\Auth\RegisterController;
 */
 
 
-
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login.index');
 Route::get('/user', [RegisterController::class, 'showRegistrationForm'])->name('register.index');
 Route::group(['middleware' => ['auth'], 'prefix' => 'memo', 'as' => 'memo.'], function() {
