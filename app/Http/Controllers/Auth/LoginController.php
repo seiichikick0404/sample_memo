@@ -46,7 +46,6 @@ class LoginController extends Controller
     // ログアウト時にメモを閉じる処理
     public function logout(Request $request)
     {
-
         $user = Auth::user();
 
         $memo = DB::table('memos')
